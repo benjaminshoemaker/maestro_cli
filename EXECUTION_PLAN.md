@@ -126,11 +126,11 @@ Install and configure all CLI dependencies including commander, express, chalk, 
 Create the CLI entry point using commander. Implement the `maestro init <project-name>` command skeleton with argument parsing and the `maestro redo <phase>` command skeleton.
 
 **Acceptance Criteria:**
-- [ ] `cli/src/index.ts` exists as CLI entry point with shebang
-- [ ] `maestro init <project-name>` command is registered and accepts project name argument
-- [ ] `maestro redo <phase-number>` command is registered and accepts phase argument
-- [ ] Running `npx maestro --help` displays available commands
-- [ ] Running `npx maestro init --help` displays init command options
+- [x] `cli/src/index.ts` exists as CLI entry point with shebang
+- [x] `maestro init <project-name>` command is registered and accepts project name argument
+- [x] `maestro redo <phase-number>` command is registered and accepts phase argument
+- [x] Running `npx maestro --help` displays available commands
+- [x] Running `npx maestro init --help` displays init command options
 
 **Files to Create:**
 - `cli/src/index.ts` — CLI entry point with commander setup

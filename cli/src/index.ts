@@ -4,6 +4,7 @@ import { Command } from "commander";
 import { pathToFileURL } from "node:url";
 import { createInitCommand } from "./commands/init";
 import { createRedoCommand } from "./commands/redo";
+import { isCliError } from "./utils/errors";
 
 export function createProgram(): Command {
   const program = new Command();
@@ -17,7 +18,16 @@ export function createProgram(): Command {
 
 export async function main(argv = process.argv): Promise<void> {
   const program = createProgram();
-  await program.parseAsync(argv);
+  try {
+    await program.parseAsync(argv);
+  } catch (error) {
+    if (isCliError(error)) {
+      process.exitCode = error.exitCode;
+      console.error(error.message);
+      return;
+    }
+    throw error;
+  }
 }
 
 const isExecutedDirectly =

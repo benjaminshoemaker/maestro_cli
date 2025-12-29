@@ -154,11 +154,11 @@ Create the CLI entry point using commander. Implement the `maestro init <project
 Implement Node.js version checking, internet connectivity verification, and project name validation. These checks run before any scaffolding occurs.
 
 **Acceptance Criteria:**
-- [ ] Node.js version check fails gracefully with message if version < 18
-- [ ] Internet connectivity check pings API health endpoint and fails gracefully if unreachable
-- [ ] Project name validation enforces: alphanumeric, hyphens, underscores only, max 64 chars
-- [ ] Invalid project name displays specific error message
-- [ ] All exit codes match spec (1 = Node version, 2 = No internet)
+- [x] Node.js version check fails gracefully with message if version < 18
+- [x] Internet connectivity check pings API health endpoint and fails gracefully if unreachable
+- [x] Project name validation enforces: alphanumeric, hyphens, underscores only, max 64 chars
+- [x] Invalid project name displays specific error message
+- [x] All exit codes match spec (1 = Node version, 2 = No internet)
 
 **Files to Create:**
 - `cli/src/utils/validations.ts` — Validation utility functions

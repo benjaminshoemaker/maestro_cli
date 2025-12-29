@@ -63,11 +63,11 @@ Human must complete before starting:
 Create the monorepo structure with `/cli` and `/web` directories. Set up root-level configuration for TypeScript and establish the project foundation that both packages will share.
 
 **Acceptance Criteria:**
-- [ ] Root `package.json` exists with workspaces configured for `/cli` and `/web`
-- [ ] `/cli/package.json` exists with correct name, version, bin entry, and engine requirement (Node ≥18)
-- [ ] `/web/package.json` exists with correct name and version
-- [ ] Root `tsconfig.json` exists with base TypeScript configuration
-- [ ] Both `/cli/tsconfig.json` and `/web/tsconfig.json` extend root config
+- [x] Root `package.json` exists with workspaces configured for `/cli` and `/web`
+- [x] `/cli/package.json` exists with correct name, version, bin entry, and engine requirement (Node ≥18)
+- [x] `/web/package.json` exists with correct name and version
+- [x] Root `tsconfig.json` exists with base TypeScript configuration
+- [x] Both `/cli/tsconfig.json` and `/web/tsconfig.json` extend root config
 
 **Files to Create:**
 - `package.json` — Root monorepo config with workspaces

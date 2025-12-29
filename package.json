@@ -1,0 +1,8 @@
+{
+  "name": "maestro",
+  "private": true,
+  "workspaces": [
+    "cli",
+    "web"
+  ]
+}

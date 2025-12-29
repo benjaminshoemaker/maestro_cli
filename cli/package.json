@@ -1,0 +1,11 @@
+{
+  "name": "maestro",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "maestro": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

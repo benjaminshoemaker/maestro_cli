@@ -246,11 +246,11 @@ Create embedded template strings for all scaffold files: `.maestro/config.json`,
 Implement the scaffolding logic that creates all directories and writes all template files to the project directory. Display the file tree after creation using chalk.
 
 **Acceptance Criteria:**
-- [ ] All directories created: `.maestro/`, `.claude/`, `.claude/skills/`, `.claude/skills/code-verification/`, `.codex/`, `specs/`
-- [ ] All files written with correct content from templates
-- [ ] Session token generated as UUID v4 and stored in config.json
-- [ ] File tree displayed after creation showing all created files
-- [ ] Uses ora spinner during file creation
+- [x] All directories created: `.maestro/`, `.claude/`, `.claude/skills/`, `.claude/skills/code-verification/`, `.codex/`, `specs/`
+- [x] All files written with correct content from templates
+- [x] Session token generated as UUID v4 and stored in config.json
+- [x] File tree displayed after creation showing all created files
+- [x] Uses ora spinner during file creation
 
 **Files to Create:**
 - `cli/src/utils/scaffold.ts` — Scaffolding logic

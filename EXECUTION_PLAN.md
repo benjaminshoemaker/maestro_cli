@@ -181,11 +181,11 @@ Implement Node.js version checking, internet connectivity verification, and proj
 Implement logic to check if the target directory exists. Handle three cases: directory with `.maestro/` (offer resume), directory without `.maestro/` (exit with error), directory doesn't exist (create it).
 
 **Acceptance Criteria:**
-- [ ] If directory exists with `.maestro/`, prompts user "Resume? (y/n)" using inquirer
-- [ ] If user declines resume, exits with code 4
-- [ ] If directory exists without `.maestro/`, exits with code 3 and specific error message
-- [ ] If directory doesn't exist, creates it successfully
-- [ ] Uses chalk for colored output messages
+- [x] If directory exists with `.maestro/`, prompts user "Resume? (y/n)" using inquirer
+- [x] If user declines resume, exits with code 4
+- [x] If directory exists without `.maestro/`, exits with code 3 and specific error message
+- [x] If directory doesn't exist, creates it successfully
+- [x] Uses chalk for colored output messages
 
 **Files to Create:**
 - `cli/src/utils/directory.ts` — Directory handling utilities

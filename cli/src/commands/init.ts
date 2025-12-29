@@ -4,6 +4,7 @@ import {
   assertNodeVersionSupported,
   assertValidProjectName,
 } from "../utils/validations";
+import { prepareProjectDirectory } from "../utils/directory";
 
 export function createInitCommand(): Command {
   return new Command("init")
@@ -14,6 +15,8 @@ export function createInitCommand(): Command {
       await assertInternetConnectivity();
       assertValidProjectName(projectName);
 
-      // Directory checks and scaffolding are implemented in Tasks 1.2.C and 1.3.*.
+      await prepareProjectDirectory(projectName);
+
+      // File scaffolding is implemented in Tasks 1.3.*.
     });
 }

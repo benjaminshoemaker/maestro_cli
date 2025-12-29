@@ -95,10 +95,10 @@ Create the monorepo structure with `/cli` and `/web` directories. Set up root-le
 Install and configure all CLI dependencies including commander, express, chalk, ora, inquirer, open, get-port, and node-fetch. Set up tsup for building the CLI.
 
 **Acceptance Criteria:**
-- [ ] All CLI dependencies from spec are installed (commander, express, open, chalk, ora, inquirer, get-port, node-fetch)
-- [ ] All CLI devDependencies installed (typescript, @types/*, tsup)
-- [ ] `tsup.config.ts` exists with correct build configuration for ESM output
-- [ ] `npm run build` successfully compiles TypeScript to `/dist`
+- [x] All CLI dependencies from spec are installed (commander, express, open, chalk, ora, inquirer, get-port, node-fetch)
+- [x] All CLI devDependencies installed (typescript, @types/*, tsup)
+- [x] `tsup.config.ts` exists with correct build configuration for ESM output
+- [x] `npm run build` successfully compiles TypeScript to `/dist`
 
 **Files to Create:**
 - `cli/tsup.config.ts` — Build configuration for CLI

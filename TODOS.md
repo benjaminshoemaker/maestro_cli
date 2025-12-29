@@ -1,0 +1,2 @@
+ - [ ] Add background agent that looks at TODOS and scopes them; high enough confidence, implements them
+ - [ ] 

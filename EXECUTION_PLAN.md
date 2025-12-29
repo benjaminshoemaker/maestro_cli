@@ -279,11 +279,11 @@ Implement the scaffolding logic that creates all directories and writes all temp
 Create an Express server that listens on a dynamically allocated port using get-port. The server will receive POST requests from the web UI to save generated documents.
 
 **Acceptance Criteria:**
-- [ ] Express server starts successfully on dynamically allocated port
-- [ ] Port is allocated using get-port library
-- [ ] Server logs startup message with port number
-- [ ] Server handles graceful shutdown on SIGINT/SIGTERM
-- [ ] Server exports port number for use in browser launch
+- [x] Express server starts successfully on dynamically allocated port
+- [x] Port is allocated using get-port library
+- [x] Server logs startup message with port number
+- [x] Server handles graceful shutdown on SIGINT/SIGTERM
+- [x] Server exports port number for use in browser launch
 
 **Files to Create:**
 - `cli/src/server/index.ts` — Express server setup

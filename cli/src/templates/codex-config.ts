@@ -1,0 +1,13 @@
+export function codexConfigTomlTemplate(): string {
+  return `model = "gpt-4o-mini"
+model_reasoning_effort = "high"
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+writable_roots = ["."]
+network_access = true
+`;
+}
+

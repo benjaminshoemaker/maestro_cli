@@ -213,12 +213,12 @@ Implement logic to check if the target directory exists. Handle three cases: dir
 Create embedded template strings for all scaffold files: `.maestro/config.json`, `.claude/settings.json`, `.claude/skills/code-verification/SKILL.md`, `.codex/config.toml`, `CLAUDE.md`, and initial `AGENTS.md`.
 
 **Acceptance Criteria:**
-- [ ] Template for `.maestro/config.json` matches spec structure (version, projectName, sessionToken, createdAt)
-- [ ] Template for `.claude/settings.json` matches spec (enabledPlugins, alwaysThinkingEnabled)
-- [ ] Template for `.claude/skills/code-verification/SKILL.md` contains full SKILL.md content from spec
-- [ ] Template for `.codex/config.toml` matches spec (model, approval_policy, sandbox settings)
-- [ ] Template for `CLAUDE.md` points to AGENTS.md
-- [ ] Template for `AGENTS.md` contains placeholder message
+- [x] Template for `.maestro/config.json` matches spec structure (version, projectName, sessionToken, createdAt)
+- [x] Template for `.claude/settings.json` matches spec (enabledPlugins, alwaysThinkingEnabled)
+- [x] Template for `.claude/skills/code-verification/SKILL.md` contains full SKILL.md content from spec
+- [x] Template for `.codex/config.toml` matches spec (model, approval_policy, sandbox settings)
+- [x] Template for `CLAUDE.md` points to AGENTS.md
+- [x] Template for `AGENTS.md` contains placeholder message
 
 **Files to Create:**
 - `cli/src/templates/index.ts` — Export all template generators

@@ -65,6 +65,7 @@ export async function POST(request: Request) {
   try {
     const result = await generateText({
       model: createChatModel(),
+      temperature: 1,
       system,
       messages: convertToCoreMessages(
         Array.isArray(conversation.messages) ? (conversation.messages as any[]) : [],
@@ -84,4 +85,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-

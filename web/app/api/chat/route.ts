@@ -142,6 +142,7 @@ export async function POST(request: Request) {
 
     const result = await streamText({
       model: createChatModel(),
+      temperature: 1,
       system: systemMessage || undefined,
       messages: convertToCoreMessages(
         messages.map((msg) => ({

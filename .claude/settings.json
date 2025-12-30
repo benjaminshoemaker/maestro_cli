@@ -28,8 +28,8 @@
       "Bash(rm:*)"
     ],
     "additionalDirectories": [
-      "/Users/coding/Projects/"
+      "/Users/coding/Projects/",
+      "/Users/coding/.cache/chrome-devtools-mcp"
     ]
   }
 }
-

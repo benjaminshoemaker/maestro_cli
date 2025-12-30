@@ -1118,12 +1118,12 @@ Create the system prompt for Phase 2 that guides the AI to gather technical arch
 Create the system prompt for Phase 3 that guides the AI to create a step-by-step implementation plan.
 
 **Acceptance Criteria:**
-- [ ] Prompt references PRODUCT_SPEC.md and TECH_SPEC.md
-- [ ] Instructs steps completable in 1-4 hours
-- [ ] Requires clear acceptance criteria per step
-- [ ] Explicit dependencies between steps
-- [ ] Includes TODO checklist in markdown format
-- [ ] Plan executable by AI coding agent
+- [x] Prompt references PRODUCT_SPEC.md and TECH_SPEC.md
+- [x] Instructs steps completable in 1-4 hours
+- [x] Requires clear acceptance criteria per step
+- [x] Explicit dependencies between steps
+- [x] Includes TODO checklist in markdown format
+- [x] Plan executable by AI coding agent
 
 **Files to Create:**
 - `web/src/prompts/phase3.ts` — Phase 3 system prompt

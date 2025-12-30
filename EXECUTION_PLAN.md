@@ -1092,11 +1092,11 @@ Create the system prompt for Phase 1 that guides the AI to gather information fo
 Create the system prompt for Phase 2 that guides the AI to gather technical architecture information.
 
 **Acceptance Criteria:**
-- [ ] Prompt covers: Architecture, Tech Stack, Data Model
-- [ ] Prompt covers: APIs/Interfaces, Third-party Services, Security
-- [ ] References PRODUCT_SPEC.md from previous phase
-- [ ] Recommends simple, proven technologies
-- [ ] Biases toward MVP simplicity
+- [x] Prompt covers: Architecture, Tech Stack, Data Model
+- [x] Prompt covers: APIs/Interfaces, Third-party Services, Security
+- [x] References PRODUCT_SPEC.md from previous phase
+- [x] Recommends simple, proven technologies
+- [x] Biases toward MVP simplicity
 
 **Files to Create:**
 - `web/src/prompts/phase2.ts` — Phase 2 system prompt

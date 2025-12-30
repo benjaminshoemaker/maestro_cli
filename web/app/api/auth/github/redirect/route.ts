@@ -15,7 +15,7 @@ function getRequiredEnv(name: string) {
 export async function GET(_request: Request) {
   try {
     const clientId = getRequiredEnv("GITHUB_CLIENT_ID");
-    const appUrl = getRequiredEnv("NEXT_PUBLIC_APP_URL");
+    const appUrl = new URL(_request.url).origin;
 
     const state = crypto.randomBytes(16).toString("hex");
 
@@ -42,4 +42,3 @@ export async function GET(_request: Request) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-

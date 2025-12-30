@@ -11,17 +11,9 @@ import {
 
 const OAUTH_STATE_COOKIE = "maestro_oauth_state";
 
-function getRequiredEnv(name: string) {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-  return value;
-}
-
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
-  const appUrl = getRequiredEnv("NEXT_PUBLIC_APP_URL");
+  const appUrl = requestUrl.origin;
 
   const code = requestUrl.searchParams.get("code");
   const state = requestUrl.searchParams.get("state");

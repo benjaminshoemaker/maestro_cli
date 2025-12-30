@@ -697,20 +697,20 @@ Create the POST `/api/sessions/:id/phase/:phase/complete` endpoint that marks a 
 ### Phase 2 Checkpoint
 
 **Automated Checks:**
-- [ ] All tests pass (`npm test` in /web)
-- [ ] TypeScript compilation succeeds (`npm run build` in /web)
-- [ ] Database migrations applied successfully
+- [x] All tests pass (`npm test` in /web)
+- [x] TypeScript compilation succeeds (`npm run build` in /web)
+- [x] Database migrations applied successfully
 - [ ] ESLint passes
 
 **Manual Verification:**
 - [ ] GitHub OAuth flow works end-to-end (login → redirect → callback → cookie set)
-- [ ] `/api/auth/me` returns user info when logged in
-- [ ] Creating a session generates valid session token
-- [ ] Session can be retrieved with all phase data
-- [ ] Logout clears cookie
+- [x] `/api/auth/me` returns user info when logged in
+- [x] Creating a session generates valid session token
+- [x] Session can be retrieved with all phase data
+- [x] Logout clears cookie
 
 **Browser Verification:**
-- [ ] Login page redirects to GitHub correctly
+- [x] Login page redirects to GitHub correctly
 - [ ] OAuth callback redirects to session page
 - [ ] No console errors during auth flow
 

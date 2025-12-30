@@ -8,9 +8,15 @@ export default function LoginPage() {
         Login
       </h1>
       <p className="text-pretty text-lg text-neutral-600">
-        Placeholder login page. Phase 2 will add GitHub OAuth.
+        Sign in to start a Maestro session.
       </p>
+      <a
+        href="/api/auth/github/redirect"
+        className="inline-flex w-fit items-center justify-center rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
+        data-testid="github-oauth-cta"
+      >
+        Continue with GitHub
+      </a>
     </main>
   );
 }
-

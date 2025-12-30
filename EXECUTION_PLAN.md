@@ -440,11 +440,11 @@ Create the basic page route structure for the application including session page
 Set up Drizzle ORM with the Neon serverless driver. Create the database connection utility and configure environment variable handling.
 
 **Acceptance Criteria:**
-- [ ] Drizzle ORM and @neondatabase/serverless are installed
-- [ ] Database connection utility exports configured client (`web/src/db/index.ts`)
-- [ ] Environment variable `DATABASE_URL` is read correctly
-- [ ] drizzle.config.ts exists for migrations
-- [ ] Connection can be tested with a simple query
+- [x] Drizzle ORM and @neondatabase/serverless are installed
+- [x] Database connection utility exports configured client (`web/src/db/index.ts`)
+- [x] Environment variable `DATABASE_URL` is read correctly
+- [x] drizzle.config.ts exists for migrations
+- [x] Connection can be tested with a simple query
 
 **Files to Create:**
 - `web/src/db/index.ts` — Database connection export

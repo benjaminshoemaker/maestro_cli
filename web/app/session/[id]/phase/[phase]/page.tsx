@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { ChatContainer } from "../../../../../src/components/chat/ChatContainer";
@@ -87,9 +87,12 @@ export default function SessionPhasePage({ params }: SessionPhasePageProps) {
     return searchParams?.toString?.() ?? "";
   }, [searchParams]);
 
-  function withQuery(path: string) {
-    return queryString ? `${path}?${queryString}` : path;
-  }
+  const withQuery = useCallback(
+    (path: string) => {
+      return queryString ? `${path}?${queryString}` : path;
+    },
+    [queryString],
+  );
 
   useEffect(() => {
     if (!session || !phase) return;
@@ -103,7 +106,7 @@ export default function SessionPhasePage({ params }: SessionPhasePageProps) {
     if (phase > session.currentPhase) {
       router?.replace?.(withQuery(`/session/${session.id}/phase/${session.currentPhase}`));
     }
-  }, [phase, projectComplete, router, session, queryString]);
+  }, [phase, projectComplete, router, session, withQuery]);
 
   if (!phase) {
     return (

@@ -17,7 +17,7 @@ export function useSessionChat({ sessionId, phase }: UseSessionChatOptions) {
   const [isLoadingHistory, setIsLoadingHistory] = useState(true);
   const [historyError, setHistoryError] = useState<Error | undefined>(undefined);
 
-  const chat = useChat({
+  const { setMessages, ...chat } = useChat({
     api: "/api/chat",
     body: { sessionId, phase },
   });
@@ -39,7 +39,7 @@ export function useSessionChat({ sessionId, phase }: UseSessionChatOptions) {
         return (await response.json()) as ChatHistoryResponse;
       })
       .then((data) => {
-        chat.setMessages(data.messages ?? []);
+        setMessages(data.messages ?? []);
       })
       .catch((error) => {
         if (controller.signal.aborted) return;
@@ -53,7 +53,7 @@ export function useSessionChat({ sessionId, phase }: UseSessionChatOptions) {
     return () => {
       controller.abort();
     };
-  }, [sessionId, phase, chat.setMessages]);
+  }, [phase, sessionId, setMessages]);
 
   return {
     ...chat,
@@ -61,4 +61,3 @@ export function useSessionChat({ sessionId, phase }: UseSessionChatOptions) {
     historyError,
   };
 }
-

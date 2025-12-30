@@ -330,17 +330,17 @@ Implement the `/save` endpoint that receives document content from the web UI, v
 ### Phase 1 Checkpoint
 
 **Automated Checks:**
-- [ ] All tests pass (`npm test` in /cli)
-- [ ] TypeScript compilation succeeds (`npm run build` in /cli)
+- [x] All tests pass (`npm test` in /cli)
+- [x] TypeScript compilation succeeds (`npm run build` in /cli)
 - [ ] ESLint passes (if configured)
 
 **Manual Verification:**
-- [ ] Running `npx maestro init test-project` creates all expected files
-- [ ] File content matches spec templates
-- [ ] Session token is valid UUID in config.json
-- [ ] Localhost server starts and `/save` endpoint responds correctly
-- [ ] Invalid token is rejected with 401
-- [ ] Ctrl+C gracefully shuts down server
+- [x] Running `npx maestro init test-project` creates all expected files
+- [x] File content matches spec templates
+- [x] Session token is valid UUID in config.json
+- [x] Localhost server starts and `/save` endpoint responds correctly
+- [x] Invalid token is rejected with 401
+- [x] Ctrl+C gracefully shuts down server
 
 ---
 

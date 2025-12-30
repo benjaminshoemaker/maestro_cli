@@ -7,7 +7,10 @@ export async function assertInternetConnectivity(options?: {
   baseUrl?: string;
   timeoutMs?: number;
 }): Promise<void> {
-  const baseUrl = options?.baseUrl ?? DEFAULT_API_BASE_URL;
+  const baseUrl =
+    options?.baseUrl ??
+    process.env.MAESTRO_API_BASE_URL ??
+    DEFAULT_API_BASE_URL;
   const timeoutMs = options?.timeoutMs ?? 5000;
 
   const controller = new AbortController();
@@ -29,4 +32,3 @@ export async function assertInternetConnectivity(options?: {
     clearTimeout(timeout);
   }
 }
-

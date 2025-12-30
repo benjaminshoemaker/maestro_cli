@@ -371,11 +371,11 @@ Human must complete before starting:
 Create a Next.js 14 application with App Router in the `/web` directory. Configure Tailwind CSS for styling and set up the basic layout structure.
 
 **Acceptance Criteria:**
-- [ ] Next.js 14 app created with App Router (`app/` directory)
-- [ ] Tailwind CSS configured with `tailwind.config.js` and `globals.css`
-- [ ] Root layout (`app/layout.tsx`) exists with basic HTML structure
-- [ ] Homepage (`app/page.tsx`) renders a placeholder landing page
-- [ ] `npm run dev` starts development server successfully
+- [x] Next.js 14 app created with App Router (`app/` directory)
+- [x] Tailwind CSS configured with `tailwind.config.js` and `globals.css`
+- [x] Root layout (`app/layout.tsx`) exists with basic HTML structure
+- [x] Homepage (`app/page.tsx`) renders a placeholder landing page
+- [x] `npm run dev` starts development server successfully
 
 **Files to Create:**
 - `web/app/layout.tsx` — Root layout with Tailwind

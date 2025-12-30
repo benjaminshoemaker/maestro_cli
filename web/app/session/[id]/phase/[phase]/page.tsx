@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { ChatContainer } from "../../../../../src/components/chat/ChatContainer";
+import { PhaseComplete } from "../../../../../src/components/chat/PhaseComplete";
 
 type SessionPhasePageProps = {
   params: {
@@ -28,9 +29,11 @@ function parsePhase(phase: string): 1 | 2 | 3 | 4 | null {
 
 export default function SessionPhasePage({ params }: SessionPhasePageProps) {
   const phase = parsePhase(params.phase);
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [session, setSession] = useState<SessionResponse["session"] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [projectComplete, setProjectComplete] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -80,6 +83,28 @@ export default function SessionPhasePage({ params }: SessionPhasePageProps) {
     return token ? token : undefined;
   }, [searchParams]);
 
+  const queryString = useMemo(() => {
+    return searchParams?.toString?.() ?? "";
+  }, [searchParams]);
+
+  function withQuery(path: string) {
+    return queryString ? `${path}?${queryString}` : path;
+  }
+
+  useEffect(() => {
+    if (!session || !phase) return;
+    if (projectComplete) return;
+
+    if (session.currentPhase == null) {
+      setProjectComplete(true);
+      return;
+    }
+
+    if (phase > session.currentPhase) {
+      router?.replace?.(withQuery(`/session/${session.id}/phase/${session.currentPhase}`));
+    }
+  }, [phase, projectComplete, router, session, queryString]);
+
   if (!phase) {
     return (
       <main
@@ -116,6 +141,10 @@ export default function SessionPhasePage({ params }: SessionPhasePageProps) {
     );
   }
 
+  if (projectComplete || session.currentPhase == null) {
+    return <PhaseComplete projectName={session.projectName} />;
+  }
+
   return (
     <ChatContainer
       sessionId={session.id}
@@ -124,6 +153,13 @@ export default function SessionPhasePage({ params }: SessionPhasePageProps) {
       completedPhases={completedPhases}
       callbackPort={callbackPort}
       sessionToken={sessionToken}
+      onPhaseComplete={(nextPhase) => {
+        if (typeof nextPhase === "number") {
+          router?.push?.(withQuery(`/session/${session.id}/phase/${nextPhase}`));
+          return;
+        }
+        setProjectComplete(true);
+      }}
     />
   );
 }

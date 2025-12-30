@@ -15,6 +15,7 @@ type ChatContainerProps = {
   completedPhases: Array<1 | 2 | 3 | 4>;
   callbackPort?: number;
   sessionToken?: string;
+  onPhaseComplete?: (nextPhase: number | null) => void;
 };
 
 export function ChatContainer({
@@ -24,6 +25,7 @@ export function ChatContainer({
   completedPhases,
   callbackPort,
   sessionToken,
+  onPhaseComplete,
 }: ChatContainerProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isAssistantTyping, setIsAssistantTyping] = useState(false);
@@ -52,6 +54,7 @@ export function ChatContainer({
               phase={phase}
               callbackPort={callbackPort}
               sessionToken={sessionToken}
+              onComplete={onPhaseComplete}
             />
           </div>
         </div>

@@ -6,6 +6,14 @@ import SessionNewPage from "../app/session/new/page";
 import SessionPage from "../app/session/[id]/page";
 import SessionPhasePage from "../app/session/[id]/phase/[phase]/page";
 
+jest.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+  }),
+  useSearchParams: () => new URLSearchParams(""),
+}));
+
 describe("Task 2.1.B: basic page routes", () => {
   test("/login renders placeholder", () => {
     render(<LoginPage />);

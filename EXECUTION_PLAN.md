@@ -1033,11 +1033,11 @@ Create the client-side logic to POST the generated document to the user's localh
 Create the navigation flow between phases. After completing a phase, redirect to the next phase or show completion message.
 
 **Acceptance Criteria:**
-- [ ] After phase 1-3 complete, redirect to next phase
-- [ ] After phase 4 complete, show "Project Complete" message
-- [ ] Navigation updates URL correctly
-- [ ] Phase state persisted and reflected in UI
-- [ ] Cannot navigate to future phases until prior complete
+- [x] After phase 1-3 complete, redirect to next phase
+- [x] After phase 4 complete, show "Project Complete" message
+- [x] Navigation updates URL correctly
+- [x] Phase state persisted and reflected in UI
+- [x] Cannot navigate to future phases until prior complete
 
 **Files to Create:**
 - `web/src/components/chat/PhaseComplete.tsx` — Phase completion UI

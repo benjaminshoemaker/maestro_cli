@@ -9,6 +9,8 @@ import {
 import { prepareProjectDirectory } from "../utils/directory";
 import { scaffoldProject } from "../utils/scaffold";
 import { formatFileTree } from "../utils/filetree";
+import { startCallbackServer } from "../server";
+import { readMaestroConfig } from "../utils/maestro-config";
 
 export function createInitCommand(): Command {
   return new Command("init")
@@ -20,15 +22,22 @@ export function createInitCommand(): Command {
       assertValidProjectName(projectName);
 
       const { projectDir, isResume } = await prepareProjectDirectory(projectName);
-      if (isResume) return;
+      let sessionToken: string;
+      let createdPaths: string[] = [];
 
-      const spinner = ora("Scaffolding files...").start();
-      const { createdPaths } = await scaffoldProject({
-        projectDir,
-        projectName,
-      });
-      spinner.succeed("Scaffolded files");
+      if (isResume) {
+        const config = await readMaestroConfig(projectDir);
+        sessionToken = config.sessionToken;
+      } else {
+        const spinner = ora("Scaffolding files...").start();
+        const scaffolded = await scaffoldProject({ projectDir, projectName });
+        spinner.succeed("Scaffolded files");
+        sessionToken = scaffolded.sessionToken;
+        createdPaths = scaffolded.createdPaths;
 
-      console.log(chalk.gray(formatFileTree({ projectDir, createdPaths })));
+        console.log(chalk.gray(formatFileTree({ projectDir, createdPaths })));
+      }
+
+      await startCallbackServer({ projectDir, sessionToken });
     });
 }

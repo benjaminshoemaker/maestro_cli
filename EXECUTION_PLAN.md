@@ -306,12 +306,12 @@ Create an Express server that listens on a dynamically allocated port using get-
 Implement the `/save` endpoint that receives document content from the web UI, validates the session token, and writes files to the appropriate location in the project directory.
 
 **Acceptance Criteria:**
-- [ ] POST `/save` accepts JSON body with phase, filename, and content
-- [ ] Authorization header with Bearer token is validated against session token
-- [ ] Invalid token returns 401 with `{"error": "Invalid session token"}`
-- [ ] Valid request writes file to correct location (specs/ for phases 1-3, root for AGENTS.md)
-- [ ] Success response includes `{"success": true, "path": "<absolute-path>"}`
-- [ ] File content is written correctly as markdown
+- [x] POST `/save` accepts JSON body with phase, filename, and content
+- [x] Authorization header with Bearer token is validated against session token
+- [x] Invalid token returns 401 with `{"error": "Invalid session token"}`
+- [x] Valid request writes file to correct location (specs/ for phases 1-3, root for AGENTS.md)
+- [x] Success response includes `{"success": true, "path": "<absolute-path>"}`
+- [x] File content is written correctly as markdown
 
 **Files to Create:**
 - `cli/src/server/handlers/save.ts` — Save endpoint handler

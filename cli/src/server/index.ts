@@ -8,9 +8,11 @@ export type CallbackServer = {
   close: () => Promise<void>;
 };
 
-export async function startCallbackServer(options?: {
+export async function startCallbackServer(options: {
   preferredPort?: number;
   handleSignals?: boolean;
+  projectDir: string;
+  sessionToken: string;
 }): Promise<CallbackServer> {
   const port = await getPort({
     port: options?.preferredPort
@@ -20,7 +22,7 @@ export async function startCallbackServer(options?: {
 
   const app = express();
   app.use(express.json({ limit: "2mb" }));
-  app.use(createRoutes());
+  app.use(createRoutes({ projectDir: options.projectDir, sessionToken: options.sessionToken }));
 
   const server = await new Promise<import("node:http").Server>((resolve) => {
     const s = app.listen(port, () => resolve(s));

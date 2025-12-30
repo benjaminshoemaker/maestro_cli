@@ -9,3 +9,10 @@ if (!globalThis.TransformStream) {
   // @ts-expect-error - jsdom env does not include Web Streams by default
   globalThis.TransformStream = TransformStream;
 }
+
+if (!globalThis.fetch) {
+  // @ts-expect-error - jsdom env does not include fetch by default
+  globalThis.fetch = jest.fn(() => {
+    throw new Error("fetch is not available in tests; mock globalThis.fetch for this test.");
+  });
+}

@@ -918,12 +918,12 @@ Create the POST `/api/chat` endpoint that handles chat requests and streams resp
 Create a custom hook that wraps the Vercel AI SDK useChat hook with session context, error handling, and message persistence.
 
 **Acceptance Criteria:**
-- [ ] Custom hook manages chat state for a specific session/phase
-- [ ] Integrates with `/api/chat` endpoint
-- [ ] Handles streaming responses correctly
-- [ ] Provides loading and error states
-- [ ] Persists conversation on message send
-- [ ] Loads existing messages from server on mount
+- [x] Custom hook manages chat state for a specific session/phase
+- [x] Integrates with `/api/chat` endpoint
+- [x] Handles streaming responses correctly
+- [x] Provides loading and error states
+- [x] Persists conversation on message send
+- [x] Loads existing messages from server on mount
 
 **Files to Create:**
 - `web/src/hooks/useSessionChat.ts` — Custom chat hook

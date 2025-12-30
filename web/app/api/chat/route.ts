@@ -30,6 +30,41 @@ function isMessageArray(value: unknown): value is ChatMessagePayload[] {
   return Array.isArray(value);
 }
 
+export async function GET(request: Request) {
+  const userId = await getUserIdFromRequest(request);
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const url = new URL(request.url);
+  const sessionId = url.searchParams.get("sessionId");
+  const phaseParam = url.searchParams.get("phase");
+  const phase = phaseParam ? parsePhase(phaseParam) : null;
+
+  if (!sessionId || !phase) {
+    return NextResponse.json(
+      { error: "Missing required query parameters: sessionId, phase" },
+      { status: 400 },
+    );
+  }
+
+  const [project] = await db
+    .select({ id: projects.id })
+    .from(projects)
+    .where(and(eq(projects.id, sessionId), eq(projects.userId, userId)));
+
+  if (!project) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
+  const [conversation] = await db
+    .select({ messages: conversations.messages })
+    .from(conversations)
+    .where(and(eq(conversations.projectId, sessionId), eq(conversations.phase, phase)));
+
+  return NextResponse.json({ messages: conversation?.messages ?? [] }, { status: 200 });
+}
+
 export async function POST(request: Request) {
   const userId = await getUserIdFromRequest(request);
   if (!userId) {
@@ -118,4 +153,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-

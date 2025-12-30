@@ -585,11 +585,11 @@ Handle the GitHub OAuth callback. Exchange the code for an access token, fetch u
 Create the `/api/auth/me` endpoint to get current user info and `/api/auth/logout` to clear the auth cookie.
 
 **Acceptance Criteria:**
-- [ ] GET `/api/auth/me` returns user object if authenticated
-- [ ] Returns 401 if no valid JWT cookie
-- [ ] User object includes: id, githubUsername, email, subscriptionStatus, freeProjectUsed
-- [ ] POST `/api/auth/logout` clears the auth cookie
-- [ ] Logout returns 200 OK
+- [x] GET `/api/auth/me` returns user object if authenticated
+- [x] Returns 401 if no valid JWT cookie
+- [x] User object includes: id, githubUsername, email, subscriptionStatus, freeProjectUsed
+- [x] POST `/api/auth/logout` clears the auth cookie
+- [x] Logout returns 200 OK
 
 **Files to Create:**
 - `web/app/api/auth/me/route.ts` — Current user endpoint

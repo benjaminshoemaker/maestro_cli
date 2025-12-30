@@ -19,6 +19,18 @@ export async function startCallbackServer(options: {
     : portNumbers(3847, 3857);
 
   const app = express();
+  app.use((req, res, next) => {
+    res.header("access-control-allow-origin", "*");
+    res.header("access-control-allow-methods", "POST, OPTIONS");
+    res.header("access-control-allow-headers", "content-type, authorization");
+
+    if (req.method === "OPTIONS") {
+      res.sendStatus(204);
+      return;
+    }
+
+    next();
+  });
   app.use(express.json({ limit: "2mb" }));
   app.use(createRoutes({ projectDir: options.projectDir, sessionToken: options.sessionToken }));
 

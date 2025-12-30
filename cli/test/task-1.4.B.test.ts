@@ -10,6 +10,37 @@ function uniqueTempDir(name: string) {
 }
 
 describe("Task 1.4.B - POST /save endpoint", () => {
+  it("responds to CORS preflight OPTIONS /save", async () => {
+    const projectDir = uniqueTempDir("project");
+    await mkdir(projectDir, { recursive: true });
+
+    const server = await startCallbackServer({
+      projectDir,
+      sessionToken: "valid-token",
+      handleSignals: false,
+    });
+
+    try {
+      const response = await fetch(`http://127.0.0.1:${server.port}/save`, {
+        method: "OPTIONS",
+        headers: {
+          origin: "http://localhost:3020",
+          "access-control-request-method": "POST",
+          "access-control-request-headers": "authorization, content-type",
+        },
+      });
+
+      expect(response.status).toBe(204);
+      expect(response.headers.get("access-control-allow-origin")).toBe("*");
+      expect(response.headers.get("access-control-allow-methods")).toContain("POST");
+      expect(response.headers.get("access-control-allow-methods")).toContain("OPTIONS");
+      expect(response.headers.get("access-control-allow-headers")).toContain("authorization");
+      expect(response.headers.get("access-control-allow-headers")).toContain("content-type");
+    } finally {
+      await server.close();
+    }
+  });
+
   it("rejects invalid session token with 401", async () => {
     const projectDir = uniqueTempDir("project");
     await mkdir(projectDir, { recursive: true });
@@ -113,4 +144,3 @@ describe("Task 1.4.B - POST /save endpoint", () => {
     }
   });
 });
-

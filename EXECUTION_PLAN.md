@@ -554,14 +554,14 @@ Create the login route that redirects users to GitHub for OAuth authentication. 
 Handle the GitHub OAuth callback. Exchange the code for an access token, fetch user info, create or update user in database, generate JWT, and set HTTP-only cookie.
 
 **Acceptance Criteria:**
-- [ ] GET `/api/auth/github` handles callback with code and state params
-- [ ] State parameter is validated against cookie (reject mismatches)
-- [ ] Code is exchanged for access token via GitHub API
-- [ ] User info (id, username, email) fetched from GitHub API
-- [ ] User created in database if new, or updated if existing
-- [ ] JWT generated with user ID and stored in HTTP-only cookie
-- [ ] Cookie settings: httpOnly, secure, sameSite=lax, 24h expiry
-- [ ] Redirects to `/session/new` on success
+- [x] GET `/api/auth/github` handles callback with code and state params
+- [x] State parameter is validated against cookie (reject mismatches)
+- [x] Code is exchanged for access token via GitHub API
+- [x] User info (id, username, email) fetched from GitHub API
+- [x] User created in database if new, or updated if existing
+- [x] JWT generated with user ID and stored in HTTP-only cookie
+- [x] Cookie settings: httpOnly, secure, sameSite=lax, 24h expiry
+- [x] Redirects to `/session/new` on success
 
 **Files to Create:**
 - `web/app/api/auth/github/route.ts` — OAuth callback handler

@@ -9,5 +9,13 @@ const customJestConfig = {
   testEnvironment: "jsdom",
 };
 
-module.exports = createJestConfig(customJestConfig);
+module.exports = async () => {
+  const config = await createJestConfig(customJestConfig)();
 
+  config.transformIgnorePatterns = [
+    "/node_modules/(?!(jose)/)",
+    "^.+\\.module\\.(css|sass|scss)$",
+  ];
+
+  return config;
+};

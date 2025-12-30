@@ -700,10 +700,10 @@ Create the POST `/api/sessions/:id/phase/:phase/complete` endpoint that marks a 
 - [x] All tests pass (`npm test` in /web)
 - [x] TypeScript compilation succeeds (`npm run build` in /web)
 - [x] Database migrations applied successfully
-- [ ] ESLint passes
+- [x] ESLint passes
 
 **Manual Verification:**
-- [ ] GitHub OAuth flow works end-to-end (login → redirect → callback → cookie set)
+- [x] GitHub OAuth flow works end-to-end (login → redirect → callback → cookie set)
 - [x] `/api/auth/me` returns user info when logged in
 - [x] Creating a session generates valid session token
 - [x] Session can be retrieved with all phase data
@@ -711,8 +711,8 @@ Create the POST `/api/sessions/:id/phase/:phase/complete` endpoint that marks a 
 
 **Browser Verification:**
 - [x] Login page redirects to GitHub correctly
-- [ ] OAuth callback redirects to session page
-- [ ] No console errors during auth flow
+- [x] OAuth callback redirects to session page
+- [x] No console errors during auth flow
 
 ---
 

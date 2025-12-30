@@ -890,13 +890,13 @@ Set up the Vercel AI SDK with OpenAI provider. Create the configuration and util
 Create the POST `/api/chat` endpoint that handles chat requests and streams responses using the Vercel AI SDK.
 
 **Acceptance Criteria:**
-- [ ] POST `/api/chat` accepts sessionId, phase, and messages array
-- [ ] Requires authentication
-- [ ] Validates session ownership
-- [ ] Streams response using AI SDK streamText
-- [ ] Persists messages to conversations table
-- [ ] Returns Server-Sent Events stream format
-- [ ] Handles OpenAI errors with appropriate responses
+- [x] POST `/api/chat` accepts sessionId, phase, and messages array
+- [x] Requires authentication
+- [x] Validates session ownership
+- [x] Streams response using AI SDK streamText
+- [x] Persists messages to conversations table
+- [x] Returns Server-Sent Events stream format
+- [x] Handles OpenAI errors with appropriate responses
 
 **Files to Create:**
 - `web/app/api/chat/route.ts` — Streaming chat endpoint

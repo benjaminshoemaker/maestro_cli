@@ -864,11 +864,11 @@ Compose all chat components into the session page layout. Include header with pr
 Set up the Vercel AI SDK with OpenAI provider. Create the configuration and utility functions for making AI requests.
 
 **Acceptance Criteria:**
-- [ ] AI SDK configured with OpenAI provider
-- [ ] Model set to GPT-4o-mini
-- [ ] Utility function for creating chat completions
-- [ ] Environment variable OPENAI_API_KEY is read correctly
-- [ ] Proper error handling for missing API key
+- [x] AI SDK configured with OpenAI provider
+- [x] Model set to GPT-4o-mini
+- [x] Utility function for creating chat completions
+- [x] Environment variable OPENAI_API_KEY is read correctly
+- [x] Proper error handling for missing API key
 
 **Files to Create:**
 - `web/src/lib/ai.ts` — AI SDK configuration and utilities

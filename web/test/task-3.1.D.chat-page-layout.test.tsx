@@ -2,6 +2,16 @@ import { render, screen } from "@testing-library/react";
 
 import { ChatContainer } from "../src/components/chat/ChatContainer";
 
+jest.mock("../src/hooks/useSessionChat", () => ({
+  useSessionChat: () => ({
+    messages: [],
+    append: jest.fn(),
+    isLoading: false,
+    isLoadingHistory: false,
+    historyError: undefined,
+  }),
+}));
+
 describe("Task 3.1.D chat page layout", () => {
   test("displays project name in header", () => {
     render(
@@ -64,4 +74,3 @@ describe("Task 3.1.D chat page layout", () => {
     expect(root.className).toContain("max-w-3xl");
   });
 });
-

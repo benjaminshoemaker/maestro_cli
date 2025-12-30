@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo } from "react";
 
 import { ChatInput } from "./ChatInput";
 import type { ChatMessage } from "./MessageList";
 import { MessageList } from "./MessageList";
 import { DoneButton } from "./DoneButton";
 import { PhaseIndicator } from "./PhaseIndicator";
+import { useSessionChat } from "../../hooks/useSessionChat";
 
 type ChatContainerProps = {
   sessionId: string;
@@ -27,8 +28,20 @@ export function ChatContainer({
   sessionToken,
   onPhaseComplete,
 }: ChatContainerProps) {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [isAssistantTyping, setIsAssistantTyping] = useState(false);
+  const chat = useSessionChat({ sessionId, phase });
+
+  const messages = useMemo<ChatMessage[]>(() => {
+    return (chat.messages ?? [])
+      .filter((message) => message.role === "user" || message.role === "assistant")
+      .map((message) => ({
+        id: message.id,
+        role: message.role,
+        content: message.content,
+      }));
+  }, [chat.messages]);
+
+  const isAssistantTyping = Boolean(chat.isLoading);
+  const isSubmitting = Boolean(chat.isLoadingHistory || isAssistantTyping);
 
   return (
     <main
@@ -65,7 +78,13 @@ export function ChatContainer({
         className="flex-1 overflow-y-auto rounded-2xl border border-neutral-200 bg-white p-4"
         data-testid="chat-message-scroll-area"
       >
-        {messages.length ? (
+        {chat.historyError ? (
+          <p className="text-sm text-rose-700">
+            Could not load chat history. Refresh the page and try again.
+          </p>
+        ) : chat.isLoadingHistory && messages.length === 0 ? (
+          <p className="text-sm text-neutral-500">Loading messages…</p>
+        ) : messages.length ? (
           <MessageList messages={messages} isAssistantTyping={isAssistantTyping} />
         ) : (
           <p className="text-sm text-neutral-500">
@@ -79,12 +98,9 @@ export function ChatContainer({
         data-testid="chat-input-area"
       >
         <ChatInput
-          isSubmitting={isAssistantTyping}
+          isSubmitting={isSubmitting}
           onSubmit={(content) => {
-            setMessages((prev) => [
-              ...prev,
-              { id: `user-${Date.now()}`, role: "user", content },
-            ]);
+            void chat.append({ role: "user", content });
           }}
         />
       </div>

@@ -13,7 +13,6 @@ module.exports = async () => {
   const config = await createJestConfig(customJestConfig)();
 
   config.transformIgnorePatterns = [
-    "/node_modules/(?!(jose)/)",
     "^.+\\.module\\.(css|sass|scss)$",
   ];
 

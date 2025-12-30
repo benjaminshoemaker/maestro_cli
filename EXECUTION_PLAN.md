@@ -741,12 +741,12 @@ Human must complete before starting:
 Build React components for displaying chat messages including user messages, assistant messages with markdown rendering, and loading states.
 
 **Acceptance Criteria:**
-- [ ] MessageList component renders array of messages
-- [ ] UserMessage component displays user messages with appropriate styling
-- [ ] AssistantMessage component renders markdown content using react-markdown
-- [ ] Loading indicator shows when assistant is typing
-- [ ] Messages scroll to bottom on new message
-- [ ] remark-gfm plugin enabled for GitHub-flavored markdown
+- [x] MessageList component renders array of messages
+- [x] UserMessage component displays user messages with appropriate styling
+- [x] AssistantMessage component renders markdown content using react-markdown
+- [x] Loading indicator shows when assistant is typing
+- [x] Messages scroll to bottom on new message
+- [x] remark-gfm plugin enabled for GitHub-flavored markdown
 
 **Files to Create:**
 - `web/src/components/chat/MessageList.tsx` — Message list container

@@ -618,12 +618,12 @@ Create the `/api/auth/me` endpoint to get current user info and `/api/auth/logou
 Create the POST `/api/sessions` endpoint that creates a new project and session. Generate a session token, link to user, and return session details.
 
 **Acceptance Criteria:**
-- [ ] POST `/api/sessions` accepts projectName and callbackPort in body
-- [ ] Requires authentication (401 if not logged in)
-- [ ] Creates new project in database linked to user
-- [ ] Generates unique session token (UUID v4)
-- [ ] Returns: sessionId, sessionToken, projectId, currentPhase (1), isNewProject
-- [ ] Handles duplicate project name gracefully (return existing project)
+- [x] POST `/api/sessions` accepts projectName and callbackPort in body
+- [x] Requires authentication (401 if not logged in)
+- [x] Creates new project in database linked to user
+- [x] Generates unique session token (UUID v4)
+- [x] Returns: sessionId, sessionToken, projectId, currentPhase (1), isNewProject
+- [x] Handles duplicate project name gracefully (return existing project)
 
 **Files to Create:**
 - `web/app/api/sessions/route.ts` — Create session endpoint

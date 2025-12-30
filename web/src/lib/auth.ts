@@ -35,6 +35,19 @@ export async function verifyAuthToken(token: string) {
   return { userId };
 }
 
+export async function getUserIdFromRequest(request: Request) {
+  const cookies = parseCookieHeader(request.headers.get("cookie"));
+  const token = cookies[getAuthCookieName()];
+  if (!token) return null;
+
+  try {
+    const { userId } = await verifyAuthToken(token);
+    return userId;
+  } catch {
+    return null;
+  }
+}
+
 export function parseCookieHeader(cookieHeader: string | null) {
   const cookies: Record<string, string> = {};
   if (!cookieHeader) return cookies;
@@ -47,4 +60,3 @@ export function parseCookieHeader(cookieHeader: string | null) {
 
   return cookies;
 }
-

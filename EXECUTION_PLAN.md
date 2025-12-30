@@ -800,12 +800,12 @@ Build the chat input component with textarea, submit button, and keyboard handli
 Build UI components that show the current phase, provide phase navigation context, and include the "Done" button to complete a phase.
 
 **Acceptance Criteria:**
-- [ ] PhaseIndicator shows current phase (1-4) with phase name
-- [ ] Phase names: Product Spec, Technical Spec, Implementation Plan, AGENTS.md
-- [ ] Progress indicator shows completed phases
-- [ ] DoneButton is prominently displayed
-- [ ] DoneButton is disabled during document generation
-- [ ] Confirmation dialog before completing phase
+- [x] PhaseIndicator shows current phase (1-4) with phase name
+- [x] Phase names: Product Spec, Technical Spec, Implementation Plan, AGENTS.md
+- [x] Progress indicator shows completed phases
+- [x] DoneButton is prominently displayed
+- [x] DoneButton is disabled during document generation
+- [x] Confirmation dialog before completing phase
 
 **Files to Create:**
 - `web/src/components/chat/PhaseIndicator.tsx` — Phase status display

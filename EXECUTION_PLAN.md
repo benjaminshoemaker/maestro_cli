@@ -978,10 +978,10 @@ Create the logic that generates the final document when user clicks "Done". Pars
 
 **Acceptance Criteria:**
 - [ ] "Done" click triggers document generation request
-- [ ] AI generates document based on conversation
-- [ ] Document formatted as markdown
-- [ ] Correct filename for each phase (PRODUCT_SPEC.md, TECH_SPEC.md, etc.)
-- [ ] Generated document stored in conversation record
+- [x] AI generates document based on conversation
+- [x] Document formatted as markdown
+- [x] Correct filename for each phase (PRODUCT_SPEC.md, TECH_SPEC.md, etc.)
+- [x] Generated document stored in conversation record
 
 **Files to Create:**
 - `web/src/lib/document.ts` — Document generation utilities

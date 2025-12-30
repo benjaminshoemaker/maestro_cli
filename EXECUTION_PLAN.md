@@ -951,11 +951,11 @@ Create a custom hook that wraps the Vercel AI SDK useChat hook with session cont
 Create logic to inject previous phase documents into the chat context. Handle context window limits by truncating older content if needed.
 
 **Acceptance Criteria:**
-- [ ] Previous phase documents loaded from conversations table
-- [ ] Documents included in system message for context
-- [ ] Total context limited to ~15K tokens for previous docs
-- [ ] If exceeding limit: most recent doc in full, earlier docs truncated
-- [ ] Truncation note added when content is cut
+- [x] Previous phase documents loaded from conversations table
+- [x] Documents included in system message for context
+- [x] Total context limited to ~15K tokens for previous docs
+- [x] If exceeding limit: most recent doc in full, earlier docs truncated
+- [x] Truncation note added when content is cut
 
 **Files to Create:**
 - `web/src/lib/context.ts` — Context building utilities

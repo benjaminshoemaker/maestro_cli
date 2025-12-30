@@ -1,13 +1,14 @@
 import crypto from "node:crypto";
 
 import { NextResponse } from "next/server";
-import { and, eq } from "drizzle-orm";
+import { and, eq, isNotNull, lt } from "drizzle-orm";
 import { convertToCoreMessages, streamText } from "ai";
 
 import { db } from "../../../src/db";
 import { conversations, projects } from "../../../src/db/schema";
 import { getUserIdFromRequest } from "../../../src/lib/auth";
 import { createChatModel } from "../../../src/lib/ai";
+import { buildPreviousDocsContext } from "../../../src/lib/context";
 
 type ChatMessagePayload = {
   id?: string;
@@ -120,8 +121,28 @@ export async function POST(request: Request) {
   }
 
   try {
+    const previousDocs = await db
+      .select({ phase: conversations.phase, document: conversations.generatedDoc })
+      .from(conversations)
+      .where(
+        and(
+          eq(conversations.projectId, sessionId),
+          lt(conversations.phase, phase),
+          isNotNull(conversations.generatedDoc),
+        ),
+      );
+
+    const { systemMessage } = buildPreviousDocsContext({
+      currentPhase: phase,
+      docs: previousDocs.map((doc) => ({
+        phase: doc.phase,
+        document: doc.document ?? "",
+      })),
+    });
+
     const result = await streamText({
       model: createChatModel(),
+      system: systemMessage || undefined,
       messages: convertToCoreMessages(
         messages.map((msg) => ({
           id: msg.id ?? crypto.randomUUID(),

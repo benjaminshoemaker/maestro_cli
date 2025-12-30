@@ -402,12 +402,12 @@ Create a Next.js 14 application with App Router in the `/web` directory. Configu
 Create the basic page route structure for the application including session pages, pricing page, and login page. These will be placeholders initially.
 
 **Acceptance Criteria:**
-- [ ] `/session/new` route exists (`app/session/new/page.tsx`)
-- [ ] `/session/[id]` dynamic route exists (`app/session/[id]/page.tsx`)
-- [ ] `/session/[id]/phase/[phase]` nested dynamic route exists
-- [ ] `/pricing` route exists (`app/pricing/page.tsx`)
-- [ ] `/login` route exists (`app/login/page.tsx`)
-- [ ] All routes render placeholder content
+- [x] `/session/new` route exists (`app/session/new/page.tsx`)
+- [x] `/session/[id]` dynamic route exists (`app/session/[id]/page.tsx`)
+- [x] `/session/[id]/phase/[phase]` nested dynamic route exists
+- [x] `/pricing` route exists (`app/pricing/page.tsx`)
+- [x] `/login` route exists (`app/login/page.tsx`)
+- [x] All routes render placeholder content
 
 **Files to Create:**
 - `web/app/session/new/page.tsx` — New session page

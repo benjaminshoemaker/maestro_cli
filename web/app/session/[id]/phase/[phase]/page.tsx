@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 import { ChatContainer } from "../../../../../src/components/chat/ChatContainer";
 
@@ -27,6 +28,7 @@ function parsePhase(phase: string): 1 | 2 | 3 | 4 | null {
 
 export default function SessionPhasePage({ params }: SessionPhasePageProps) {
   const phase = parsePhase(params.phase);
+  const searchParams = useSearchParams();
   const [session, setSession] = useState<SessionResponse["session"] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -65,6 +67,18 @@ export default function SessionPhasePage({ params }: SessionPhasePageProps) {
     }
     return phases;
   }, [session]);
+
+  const callbackPort = useMemo(() => {
+    const raw = searchParams?.get?.("port") ?? null;
+    if (!raw) return undefined;
+    const value = Number(raw);
+    return Number.isFinite(value) && value > 0 ? value : undefined;
+  }, [searchParams]);
+
+  const sessionToken = useMemo(() => {
+    const token = searchParams?.get?.("token") ?? null;
+    return token ? token : undefined;
+  }, [searchParams]);
 
   if (!phase) {
     return (
@@ -108,6 +122,8 @@ export default function SessionPhasePage({ params }: SessionPhasePageProps) {
       phase={phase}
       projectName={session.projectName}
       completedPhases={completedPhases}
+      callbackPort={callbackPort}
+      sessionToken={sessionToken}
     />
   );
 }

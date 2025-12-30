@@ -977,7 +977,7 @@ Create logic to inject previous phase documents into the chat context. Handle co
 Create the logic that generates the final document when user clicks "Done". Parse the conversation to extract the document and format as markdown.
 
 **Acceptance Criteria:**
-- [ ] "Done" click triggers document generation request
+- [x] "Done" click triggers document generation request
 - [x] AI generates document based on conversation
 - [x] Document formatted as markdown
 - [x] Correct filename for each phase (PRODUCT_SPEC.md, TECH_SPEC.md, etc.)
@@ -1004,12 +1004,12 @@ Create the logic that generates the final document when user clicks "Done". Pars
 Create the client-side logic to POST the generated document to the user's localhost callback server. Handle success and failure cases.
 
 **Acceptance Criteria:**
-- [ ] Document POSTed to localhost:PORT/save with correct payload
-- [ ] Authorization header includes session token
-- [ ] Success triggers phase completion API call
-- [ ] On failure: display document with "Copy to clipboard" fallback
-- [ ] Timeout handling for localhost POST (5s timeout)
-- [ ] Error message displayed on network failure
+- [x] Document POSTed to localhost:PORT/save with correct payload
+- [x] Authorization header includes session token
+- [x] Success triggers phase completion API call
+- [x] On failure: display document with "Copy to clipboard" fallback
+- [x] Timeout handling for localhost POST (5s timeout)
+- [x] Error message displayed on network failure
 
 **Files to Create:**
 - `web/src/lib/localhost.ts` — Localhost callback utilities

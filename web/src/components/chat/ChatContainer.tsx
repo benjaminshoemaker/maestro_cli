@@ -13,12 +13,20 @@ type ChatContainerProps = {
   phase: 1 | 2 | 3 | 4;
   projectName: string;
   completedPhases: Array<1 | 2 | 3 | 4>;
+  callbackPort?: number;
+  sessionToken?: string;
 };
 
-export function ChatContainer({ sessionId, phase, projectName, completedPhases }: ChatContainerProps) {
+export function ChatContainer({
+  sessionId,
+  phase,
+  projectName,
+  completedPhases,
+  callbackPort,
+  sessionToken,
+}: ChatContainerProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isAssistantTyping, setIsAssistantTyping] = useState(false);
-  const [isGeneratingDocument, setIsGeneratingDocument] = useState(false);
 
   return (
     <main
@@ -40,8 +48,10 @@ export function ChatContainer({ sessionId, phase, projectName, completedPhases }
           </div>
           <div className="flex items-center gap-3">
             <DoneButton
-              isGenerating={isGeneratingDocument}
-              onConfirm={() => setIsGeneratingDocument(true)}
+              sessionId={sessionId}
+              phase={phase}
+              callbackPort={callbackPort}
+              sessionToken={sessionToken}
             />
           </div>
         </div>
@@ -78,4 +88,3 @@ export function ChatContainer({ sessionId, phase, projectName, completedPhases }
     </main>
   );
 }
-

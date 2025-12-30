@@ -497,11 +497,11 @@ Create Drizzle schema definitions for the users, projects, and conversations tab
 Generate and run the initial database migration to create all tables in the Neon database. Verify the schema is correctly applied.
 
 **Acceptance Criteria:**
-- [ ] `npm run db:generate` creates migration files
-- [ ] `npm run db:push` applies schema to database
-- [ ] All three tables exist in Neon database
-- [ ] Indexes are created correctly
-- [ ] Test insert/select works for each table
+- [x] `npm run db:generate` creates migration files
+- [x] `npm run db:push` applies schema to database
+- [x] All three tables exist in Neon database
+- [x] Indexes are created correctly
+- [x] Test insert/select works for each table
 
 **Files to Create:**
 - `web/drizzle/` — Generated migration files (auto-generated)

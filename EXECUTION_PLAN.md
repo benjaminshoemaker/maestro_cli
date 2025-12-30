@@ -529,10 +529,10 @@ Generate and run the initial database migration to create all tables in the Neon
 Create the login route that redirects users to GitHub for OAuth authentication. Include state parameter for CSRF protection.
 
 **Acceptance Criteria:**
-- [ ] GET `/api/auth/github/redirect` redirects to GitHub OAuth URL
-- [ ] OAuth URL includes correct client_id, redirect_uri, scope (user:email)
-- [ ] Random state parameter is generated and stored in cookie
-- [ ] Redirect URI points to callback endpoint
+- [x] GET `/api/auth/github/redirect` redirects to GitHub OAuth URL
+- [x] OAuth URL includes correct client_id, redirect_uri, scope (user:email)
+- [x] Random state parameter is generated and stored in cookie
+- [x] Redirect URI points to callback endpoint
 
 **Files to Create:**
 - `web/app/api/auth/github/redirect/route.ts` — OAuth redirect handler

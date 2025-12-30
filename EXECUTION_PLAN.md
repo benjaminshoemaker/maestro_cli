@@ -1145,12 +1145,12 @@ Create the system prompt for Phase 3 that guides the AI to create a step-by-step
 Create the system prompt for Phase 4 that guides the AI to generate a customized AGENTS.md file.
 
 **Acceptance Criteria:**
-- [ ] Prompt references all three previous phase documents
-- [ ] Customizes for project-specific tech stack
-- [ ] Includes testing policy tailored to stack
-- [ ] Includes mocking policy based on dependencies
-- [ ] Includes error handling conventions
-- [ ] Includes project-specific guardrails
+- [x] Prompt references all three previous phase documents
+- [x] Customizes for project-specific tech stack
+- [x] Includes testing policy tailored to stack
+- [x] Includes mocking policy based on dependencies
+- [x] Includes error handling conventions
+- [x] Includes project-specific guardrails
 
 **Files to Create:**
 - `web/src/prompts/phase4.ts` — Phase 4 system prompt

@@ -1066,11 +1066,11 @@ Create the navigation flow between phases. After completing a phase, redirect to
 Create the system prompt for Phase 1 that guides the AI to gather information for the product specification.
 
 **Acceptance Criteria:**
-- [ ] Prompt covers: Problem Statement, Target User, Core Value Proposition
-- [ ] Prompt covers: Key Features, User Flows, Success Metrics
-- [ ] Instructs AI to ask clarifying questions
-- [ ] Instructs AI to challenge vague answers
-- [ ] Instructs AI to offer document generation when ready
+- [x] Prompt covers: Problem Statement, Target User, Core Value Proposition
+- [x] Prompt covers: Key Features, User Flows, Success Metrics
+- [x] Instructs AI to ask clarifying questions
+- [x] Instructs AI to challenge vague answers
+- [x] Instructs AI to offer document generation when ready
 
 **Files to Create:**
 - `web/src/prompts/phase1.ts` — Phase 1 system prompt

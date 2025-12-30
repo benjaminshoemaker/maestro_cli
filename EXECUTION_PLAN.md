@@ -645,12 +645,12 @@ Create the POST `/api/sessions` endpoint that creates a new project and session.
 Create the GET `/api/sessions/:id` endpoint that returns session details including phase completion status and generated documents.
 
 **Acceptance Criteria:**
-- [ ] GET `/api/sessions/:id` returns session object
-- [ ] Requires authentication
-- [ ] Returns 404 if session not found or user doesn't own it
-- [ ] Response includes: id, projectName, currentPhase
-- [ ] Response includes phases object with complete status and document for each phase
-- [ ] Documents are fetched from conversations table
+- [x] GET `/api/sessions/:id` returns session object
+- [x] Requires authentication
+- [x] Returns 404 if session not found or user doesn't own it
+- [x] Response includes: id, projectName, currentPhase
+- [x] Response includes phases object with complete status and document for each phase
+- [x] Documents are fetched from conversations table
 
 **Files to Create:**
 - `web/app/api/sessions/[id]/route.ts` — Get session endpoint

@@ -33,11 +33,34 @@ describe("Task 2.1.B: basic page routes", () => {
     ).toBeInTheDocument();
   });
 
-  test("/session/[id]/phase/[phase] renders placeholder", () => {
-    render(<SessionPhasePage params={{ id: "test-session", phase: "2" }} />);
-    expect(
-      screen.getByRole("heading", { name: /phase 2/i }),
-    ).toBeInTheDocument();
+  test("/session/[id]/phase/[phase] renders chat UI", async () => {
+    const originalFetch = globalThis.fetch;
+
+    try {
+      globalThis.fetch = jest.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          session: {
+            id: "test-session",
+            projectName: "Test Project",
+            currentPhase: 2,
+            phases: {
+              1: { complete: true, document: null },
+              2: { complete: false, document: null },
+              3: { complete: false, document: null },
+              4: { complete: false, document: null },
+            },
+          },
+        }),
+      } as any);
+
+      render(<SessionPhasePage params={{ id: "test-session", phase: "2" }} />);
+
+      expect(await screen.findByTestId("chat-header-project-name")).toHaveTextContent(
+        "Test Project",
+      );
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
   });
 });
-

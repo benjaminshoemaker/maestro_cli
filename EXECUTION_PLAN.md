@@ -830,12 +830,12 @@ Build UI components that show the current phase, provide phase navigation contex
 Compose all chat components into the session page layout. Include header with project name, phase indicator, chat area, and input.
 
 **Acceptance Criteria:**
-- [ ] Session page displays project name in header
-- [ ] PhaseIndicator visible in header area
-- [ ] MessageList fills available space with scrolling
-- [ ] ChatInput fixed at bottom
-- [ ] DoneButton visible and accessible
-- [ ] Responsive layout for different screen sizes
+- [x] Session page displays project name in header
+- [x] PhaseIndicator visible in header area
+- [x] MessageList fills available space with scrolling
+- [x] ChatInput fixed at bottom
+- [x] DoneButton visible and accessible
+- [x] Responsive layout for different screen sizes
 
 **Files to Create:**
 - `web/src/components/chat/ChatContainer.tsx` — Main chat layout

@@ -672,13 +672,13 @@ Create the GET `/api/sessions/:id` endpoint that returns session details includi
 Create the POST `/api/sessions/:id/phase/:phase/complete` endpoint that marks a phase as complete and stores the generated document.
 
 **Acceptance Criteria:**
-- [ ] POST endpoint accepts document in request body
-- [ ] Requires authentication
-- [ ] Updates conversation record with generated_doc
-- [ ] Updates project phase_N_complete flag to true
-- [ ] Updates project current_phase to next phase (or null if phase 4)
-- [ ] Returns success: true and nextPhase
-- [ ] Validates phase number (1-4)
+- [x] POST endpoint accepts document in request body
+- [x] Requires authentication
+- [x] Updates conversation record with generated_doc
+- [x] Updates project phase_N_complete flag to true
+- [x] Updates project current_phase to next phase (or null if phase 4)
+- [x] Returns success: true and nextPhase
+- [x] Validates phase number (1-4)
 
 **Files to Create:**
 - `web/app/api/sessions/[id]/phase/[phase]/complete/route.ts` — Phase complete endpoint

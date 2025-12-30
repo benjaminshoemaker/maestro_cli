@@ -772,12 +772,12 @@ Build React components for displaying chat messages including user messages, ass
 Build the chat input component with textarea, submit button, and keyboard handling. Include character count and disabled states.
 
 **Acceptance Criteria:**
-- [ ] ChatInput component with auto-resizing textarea
-- [ ] Submit button sends message on click
-- [ ] Enter key submits (Shift+Enter for newline)
-- [ ] Input is disabled while waiting for response
-- [ ] Submit button shows loading state during submission
-- [ ] Empty messages cannot be submitted
+- [x] ChatInput component with auto-resizing textarea
+- [x] Submit button sends message on click
+- [x] Enter key submits (Shift+Enter for newline)
+- [x] Input is disabled while waiting for response
+- [x] Submit button shows loading state during submission
+- [x] Empty messages cannot be submitted
 
 **Files to Create:**
 - `web/src/components/chat/ChatInput.tsx` — Chat input component

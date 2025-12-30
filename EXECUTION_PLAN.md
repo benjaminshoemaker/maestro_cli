@@ -467,12 +467,12 @@ Set up Drizzle ORM with the Neon serverless driver. Create the database connecti
 Create Drizzle schema definitions for the users, projects, and conversations tables. Include all fields, constraints, and indexes from the spec.
 
 **Acceptance Criteria:**
-- [ ] `users` table schema matches spec (id, github_id, github_username, email, stripe fields, free_project_used, timestamps)
-- [ ] `projects` table schema matches spec (id, user_id FK, name, session_token, phase flags, timestamps)
-- [ ] `conversations` table schema matches spec (id, project_id FK, phase, messages JSONB, generated_doc, timestamps)
-- [ ] All CHECK constraints are defined
-- [ ] All indexes are defined
-- [ ] TypeScript types are exported for each table
+- [x] `users` table schema matches spec (id, github_id, github_username, email, stripe fields, free_project_used, timestamps)
+- [x] `projects` table schema matches spec (id, user_id FK, name, session_token, phase flags, timestamps)
+- [x] `conversations` table schema matches spec (id, project_id FK, phase, messages JSONB, generated_doc, timestamps)
+- [x] All CHECK constraints are defined
+- [x] All indexes are defined
+- [x] TypeScript types are exported for each table
 
 **Files to Create:**
 - `web/src/db/schema/users.ts` — Users table schema

@@ -3,6 +3,8 @@ import chalk from "chalk";
 import ora from "ora";
 import inquirer from "inquirer";
 import { join } from "node:path";
+import { writeFile } from "node:fs/promises";
+import crypto from "node:crypto";
 import { assertInternetConnectivity } from "../utils/network";
 import {
   assertNodeVersionSupported,
@@ -15,6 +17,8 @@ import { startCallbackServer } from "../server";
 import { readMaestroConfig } from "../utils/maestro-config";
 import { getAppUrl, launchSessionInBrowser } from "../utils/browser";
 import { waitForDocument } from "../utils/wait";
+import { validateSessionFromConfig } from "../utils/session";
+import { maestroConfigTemplate } from "../templates/maestro-config";
 
 const PHASE_FILES = new Map<number, string>([
   [1, "PRODUCT_SPEC.md"],
@@ -30,6 +34,12 @@ function getExpectedOutputPath(projectDir: string, phase: number): string | null
   return join(projectDir, "specs", filename);
 }
 
+function phaseLabel(phase: number): string {
+  const filename = PHASE_FILES.get(phase);
+  if (!filename) return `Phase ${phase}`;
+  return `Phase ${phase} (${filename})`;
+}
+
 export function createInitCommand(): Command {
   return new Command("init")
     .description("Initialize a new Maestro project")
@@ -42,10 +52,48 @@ export function createInitCommand(): Command {
       const { projectDir, isResume } = await prepareProjectDirectory(projectName);
       let sessionToken: string;
       let createdPaths: string[] = [];
+      let effectiveProjectName = projectName;
 
       if (isResume) {
         const config = await readMaestroConfig(projectDir);
         sessionToken = config.sessionToken;
+        effectiveProjectName = config.projectName;
+
+        const validation = await validateSessionFromConfig({ projectDir });
+        if (validation.status === "valid") {
+          console.log(chalk.gray(`Server session valid. Current: ${phaseLabel(validation.currentPhase)}`));
+        } else if (validation.status === "invalid") {
+          console.log(chalk.yellow("Server does not recognize this session token."));
+          const answer = await inquirer.prompt<{ startFresh: boolean }>([
+            {
+              type: "confirm",
+              name: "startFresh",
+              message: "Start fresh with a new session token?",
+              default: true,
+            },
+          ]);
+
+          if (!answer.startFresh) {
+            console.log(chalk.gray("\nTo try again later, run:"));
+            console.log(chalk.cyan(`maestro init ${projectName}`));
+            return;
+          }
+
+          sessionToken = crypto.randomUUID();
+          await writeFile(
+            join(projectDir, ".maestro", "config.json"),
+            maestroConfigTemplate({
+              projectName: effectiveProjectName,
+              sessionToken,
+              createdAt: new Date().toISOString(),
+            }),
+            "utf8",
+          );
+          console.log(chalk.green("✓ Created a new session token."));
+        } else {
+          console.log(chalk.yellow(`Could not validate session: ${validation.message}`));
+          console.log(chalk.gray("Continuing without validation..."));
+        }
       } else {
         const spinner = ora("Scaffolding files...").start();
         const scaffolded = await scaffoldProject({ projectDir, projectName });
@@ -67,14 +115,14 @@ export function createInitCommand(): Command {
             appUrl,
             callbackPort: server.port,
             token: sessionToken,
-            projectName,
+            projectName: effectiveProjectName,
           });
           console.log(chalk.gray(`Opened: ${url}`));
         } catch {
           const url = new URL("/session/new", appUrl);
           url.searchParams.set("callback", `localhost:${server.port}`);
           url.searchParams.set("token", sessionToken);
-          url.searchParams.set("project", projectName);
+          url.searchParams.set("project", effectiveProjectName);
 
           console.log(chalk.yellow("Could not open your browser automatically."));
           console.log(chalk.yellow("Open this URL manually to continue:"));

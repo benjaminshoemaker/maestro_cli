@@ -1271,11 +1271,11 @@ Create the web page that handles incoming session requests from CLI, creates or 
 Implement the CLI logic that waits for the localhost server to receive a document POST. Display appropriate messages and handle timeout.
 
 **Acceptance Criteria:**
-- [ ] CLI displays "Waiting for document..." with spinner
-- [ ] Success message displayed when document received
-- [ ] Displays saved file path on success
-- [ ] Timeout after 5 minutes with retry prompt
-- [ ] Pressing Enter retries the wait
+- [x] CLI displays "Waiting for document..." with spinner
+- [x] Success message displayed when document received
+- [x] Displays saved file path on success
+- [x] Timeout after 5 minutes with retry prompt
+- [x] Pressing Enter retries the wait
 
 **Files to Create:**
 - `cli/src/utils/wait.ts` — Wait for document utility

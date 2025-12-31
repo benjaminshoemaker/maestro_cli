@@ -60,7 +60,7 @@ npm install
   - `GET /api/auth/github/redirect`
   - `GET /api/auth/github` (callback)
 - Set GitHub app callback URL to:
-  - `https://<your-app-url>/api/auth/github`
+  - `https://<your-app-url>/api/auth/github` (production: `https://maestro-cli-web.vercel.app/api/auth/github`)
 
 ### OpenAI (Vercel AI SDK)
 
@@ -72,7 +72,7 @@ npm install
 
 The CLI checks connectivity by requesting:
 
-- `GET {MAESTRO_API_BASE_URL}/api/health` (default base URL: `https://maestro.dev`)
+- `GET {MAESTRO_API_BASE_URL}/api/health` (default base URL: `https://maestro-cli-web.vercel.app`)
 
 For local development, set:
 
@@ -99,18 +99,16 @@ node dist/index.js --help
 
 ### Manual End-to-End (CLI callback + Web chat)
 
-Today, `maestro init` scaffolds + starts the localhost callback server, but does not yet create a web session or open the browser automatically.
+`maestro init` scaffolds, starts the localhost callback server, and opens your browser to the `/session/new` handler.
 
 1. Terminal A (web):
    - `cd web && npm run dev`
 2. Terminal B (cli):
    - `cd cli`
-   - `MAESTRO_API_BASE_URL=http://localhost:<web-port> node dist/index.js init <project-name>`
+   - `MAESTRO_APP_URL=http://localhost:<web-port> MAESTRO_API_BASE_URL=http://localhost:<web-port> node dist/index.js init <project-name>`
    - Keep this running (it prints the callback port, e.g. `http://localhost:50045`)
-3. In the browser:
-   - Visit `http://localhost:<web-port>/login` and complete GitHub OAuth.
-   - Create a session via `POST /api/sessions` (DevTools Console is easiest) using `callbackPort` from the CLI output.
-   - Open `/session/<id>/phase/1?port=<callbackPort>&token=<sessionToken>` where `sessionToken` comes from `<project>/.maestro/config.json`.
+3. In the browser (opened automatically):
+   - Complete GitHub OAuth if prompted (you’ll be redirected back to `/session/new`).
 4. Click `Done` to generate a doc and POST it to the CLI callback server.
    - Phase 1–3 docs land in `<project>/specs/`
    - Phase 4 doc lands in `<project>/AGENTS.md`
@@ -148,3 +146,15 @@ cd web && npm run build
   - Ensure optional deps are installed: `npm install --include=optional`
   - If needed, install the platform binary matching your `esbuild` version:
     - `npm install --no-save @esbuild/darwin-arm64@$(node -p "require('esbuild/package.json').version")`
+
+## Adding Badges
+
+Badges are just Markdown images (often from shields.io) wrapped in a link:
+
+```md
+[![Label](https://img.shields.io/badge/label-value-color)](https://example.com)
+```
+
+Common sources:
+- shields.io (static + dynamic badges): https://shields.io/
+- GitHub Actions badges (once you have a workflow): `https://github.com/<owner>/<repo>/actions/workflows/<workflow>.yml/badge.svg`

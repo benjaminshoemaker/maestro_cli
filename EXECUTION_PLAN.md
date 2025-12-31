@@ -1383,12 +1383,12 @@ Update the init command to handle resume flow. When `.maestro/` exists and user 
 Implement the `maestro redo <phase>` command that allows users to redo a specific phase, opening the browser directly to that phase.
 
 **Acceptance Criteria:**
-- [ ] `maestro redo <phase>` validates phase number (1-4)
-- [ ] Validates inside Maestro project (`.maestro/` exists)
-- [ ] Starts localhost server
-- [ ] Opens browser to specific phase URL
-- [ ] If document exists for phase, prompts to keep or replace
-- [ ] Exits with error if not in Maestro project
+- [x] `maestro redo <phase>` validates phase number (1-4)
+- [x] Validates inside Maestro project (`.maestro/` exists)
+- [x] Starts localhost server
+- [x] Opens browser to specific phase URL
+- [x] If document exists for phase, prompts to keep or replace
+- [x] Exits with error if not in Maestro project
 
 **Files to Modify:**
 - `cli/src/commands/redo.ts` — Implement full redo logic

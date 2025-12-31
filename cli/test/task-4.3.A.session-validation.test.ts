@@ -44,7 +44,7 @@ describe("Task 4.3.A session validation", () => {
         const parsed = JSON.parse(body) as any;
         if (parsed.projectName === "my-project" && parsed.sessionToken === "token-1") {
           res.setHeader("content-type", "application/json");
-          res.end(JSON.stringify({ valid: true, currentPhase: 3 }));
+          res.end(JSON.stringify({ valid: true, sessionId: "session-1", currentPhase: 3 }));
           return;
         }
 
@@ -71,7 +71,12 @@ describe("Task 4.3.A session validation", () => {
         timeoutMs: 1000,
       });
 
-      expect(result).toEqual({ status: "valid", currentPhase: 3, projectName: "my-project" });
+      expect(result).toEqual({
+        status: "valid",
+        sessionId: "session-1",
+        currentPhase: 3,
+        projectName: "my-project",
+      });
     } finally {
       server.close();
     }
@@ -127,4 +132,3 @@ describe("Task 4.3.A session validation", () => {
     expect(result.status).toBe("error");
   });
 });
-

@@ -60,6 +60,7 @@ describe("Task 4.3.A validate session endpoint", () => {
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toMatchObject({
       valid: true,
+      sessionId: projectId,
       currentPhase: 3,
     });
   });
@@ -100,4 +101,3 @@ describe("Task 4.3.A validate session endpoint", () => {
     await expect(response.json()).resolves.toMatchObject({ valid: false });
   });
 });
-

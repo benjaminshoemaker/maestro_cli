@@ -21,6 +21,7 @@ export async function POST(request: Request) {
 
   const [project] = await db
     .select({
+      id: projects.id,
       currentPhase: projects.currentPhase,
     })
     .from(projects)
@@ -31,8 +32,7 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json(
-    { valid: true, currentPhase: project.currentPhase ?? 1 },
+    { valid: true, sessionId: project.id, currentPhase: project.currentPhase ?? 1 },
     { status: 200 },
   );
 }
-

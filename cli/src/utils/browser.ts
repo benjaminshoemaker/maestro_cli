@@ -39,3 +39,37 @@ export async function launchSessionInBrowser(params: {
   return url;
 }
 
+export function buildSessionPhaseUrl(params: {
+  appUrl?: string;
+  sessionId: string;
+  phase: number;
+  callbackPort: number;
+  token: string;
+}) {
+  const base = new URL(params.appUrl ?? DEFAULT_API_BASE_URL);
+  const safeSessionId = encodeURIComponent(params.sessionId);
+  const safePhase = encodeURIComponent(String(params.phase));
+  const url = new URL(`/session/${safeSessionId}/phase/${safePhase}`, base);
+
+  url.searchParams.set("port", String(params.callbackPort));
+  url.searchParams.set("token", params.token);
+
+  return url.toString();
+}
+
+export async function launchUrlInBrowser(url: string) {
+  await open(url);
+  return url;
+}
+
+export async function launchSessionPhaseInBrowser(params: {
+  appUrl?: string;
+  sessionId: string;
+  phase: number;
+  callbackPort: number;
+  token: string;
+}) {
+  const url = buildSessionPhaseUrl(params);
+  await launchUrlInBrowser(url);
+  return url;
+}

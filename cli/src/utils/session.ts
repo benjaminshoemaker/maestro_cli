@@ -4,12 +4,12 @@ import { readMaestroConfig } from "./maestro-config";
 import { DEFAULT_API_BASE_URL } from "./network";
 
 export type SessionValidationResult =
-  | { status: "valid"; currentPhase: number }
+  | { status: "valid"; sessionId: string; currentPhase: number }
   | { status: "invalid" }
   | { status: "error"; message: string };
 
 type ValidateResponseBody =
-  | { valid: true; currentPhase: number }
+  | { valid: true; sessionId: string; currentPhase: number }
   | { valid: false }
   | { error: string };
 
@@ -40,8 +40,11 @@ export async function validateSession(params: {
     const body = (await response.json().catch(() => null)) as ValidateResponseBody | null;
     if (body && "valid" in body) {
       if (body.valid) {
+        if (typeof body.sessionId !== "string" || body.sessionId.length === 0) {
+          return { status: "error", message: "Invalid session validation response" };
+        }
         const phase = typeof body.currentPhase === "number" ? body.currentPhase : 1;
-        return { status: "valid", currentPhase: phase };
+        return { status: "valid", sessionId: body.sessionId, currentPhase: phase };
       }
       return { status: "invalid" };
     }

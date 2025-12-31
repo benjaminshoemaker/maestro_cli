@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import { CliError } from "./errors";
 
-export const DEFAULT_API_BASE_URL = "https://maestro.dev";
+export const DEFAULT_API_BASE_URL = "https://maestro-cli-web.vercel.app";
 
 export async function assertInternetConnectivity(options?: {
   baseUrl?: string;

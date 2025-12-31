@@ -11,6 +11,7 @@ import { scaffoldProject } from "../utils/scaffold";
 import { formatFileTree } from "../utils/filetree";
 import { startCallbackServer } from "../server";
 import { readMaestroConfig } from "../utils/maestro-config";
+import { getAppUrl, launchSessionInBrowser } from "../utils/browser";
 
 export function createInitCommand(): Command {
   return new Command("init")
@@ -38,6 +39,26 @@ export function createInitCommand(): Command {
         console.log(chalk.gray(formatFileTree({ projectDir, createdPaths })));
       }
 
-      await startCallbackServer({ projectDir, sessionToken });
+      const server = await startCallbackServer({ projectDir, sessionToken });
+
+      const appUrl = getAppUrl();
+      try {
+        const url = await launchSessionInBrowser({
+          appUrl,
+          callbackPort: server.port,
+          token: sessionToken,
+          projectName,
+        });
+        console.log(chalk.gray(`Opened: ${url}`));
+      } catch {
+        const url = new URL("/session/new", appUrl);
+        url.searchParams.set("callback", `localhost:${server.port}`);
+        url.searchParams.set("token", sessionToken);
+        url.searchParams.set("project", projectName);
+
+        console.log(chalk.yellow("Could not open your browser automatically."));
+        console.log(chalk.yellow("Open this URL manually to continue:"));
+        console.log(chalk.cyan(url.toString()));
+      }
     });
 }

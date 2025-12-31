@@ -1240,12 +1240,12 @@ Implement the logic to open the user's browser with the correct session URL, inc
 Create the web page that handles incoming session requests from CLI, creates or resumes the session, and redirects to the chat interface.
 
 **Acceptance Criteria:**
-- [ ] `/session/new` reads callback, token, and project from query params
-- [ ] Creates session via API if new
-- [ ] Validates existing session if resuming
-- [ ] Stores callback port in session/memory for later use
-- [ ] Redirects to `/session/{id}/phase/{currentPhase}`
-- [ ] Handles missing or invalid params gracefully
+- [x] `/session/new` reads callback, token, and project from query params
+- [x] Creates session via API if new
+- [x] Validates existing session if resuming
+- [x] Stores callback port in session/memory for later use
+- [x] Redirects to `/session/{id}/phase/{currentPhase}`
+- [x] Handles missing or invalid params gracefully
 
 **Files to Modify:**
 - `web/app/session/new/page.tsx` — Implement session creation/resume logic

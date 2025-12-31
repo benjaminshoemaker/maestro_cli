@@ -87,9 +87,9 @@ describe("Task 4.1.A init command launches browser", () => {
 
     vi.doMock("../src/utils/wait", () => ({
       waitForDocument: vi.fn(async () => ({
-        phase: 1,
-        filename: "PRODUCT_SPEC.md",
-        path: "/tmp/PRODUCT_SPEC.md",
+        phase: 4,
+        filename: "AGENTS.md",
+        path: "/tmp/AGENTS.md",
       })),
     }));
 

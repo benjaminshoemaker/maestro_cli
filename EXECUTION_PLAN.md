@@ -1297,11 +1297,11 @@ Implement the CLI logic that waits for the localhost server to receive a documen
 Create the CLI flow for transitioning between phases. After receiving a document, prompt user to continue to next phase or exit.
 
 **Acceptance Criteria:**
-- [ ] After document saved, prompts "Continue to Phase N? (y/n)"
-- [ ] If yes, opens browser to next phase
-- [ ] If no, displays resume instructions and exits
-- [ ] After Phase 4, displays completion message
-- [ ] All 4 generated files listed on completion
+- [x] After document saved, prompts "Continue to Phase N? (y/n)"
+- [x] If yes, opens browser to next phase
+- [x] If no, displays resume instructions and exits
+- [x] After Phase 4, displays completion message
+- [x] All 4 generated files listed on completion
 
 **Files to Modify:**
 - `cli/src/commands/init.ts` — Add phase transition logic

@@ -1,5 +1,11 @@
 # Maestro
 
+[![Live](https://img.shields.io/badge/live-maestro--cli--web.vercel.app-blue)](https://maestro-cli-web.vercel.app)
+[![Deployed on Vercel](https://img.shields.io/badge/deployed%20on-Vercel-black?logo=vercel&logoColor=white)](https://maestro-cli-web.vercel.app)
+[![Node.js >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](#requirements)
+[![Next.js](https://img.shields.io/badge/next.js-14-black?logo=next.js&logoColor=white)](web/package.json)
+[![TypeScript](https://img.shields.io/badge/typescript-blue?logo=typescript&logoColor=white)](tsconfig.json)
+
 Maestro is a monorepo with:
 
 - A Node.js CLI (`maestro`) that scaffolds a project and runs a localhost callback server.
@@ -142,4 +148,3 @@ cd web && npm run build
   - Ensure optional deps are installed: `npm install --include=optional`
   - If needed, install the platform binary matching your `esbuild` version:
     - `npm install --no-save @esbuild/darwin-arm64@$(node -p "require('esbuild/package.json').version")`
-

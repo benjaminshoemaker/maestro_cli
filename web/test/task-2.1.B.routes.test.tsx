@@ -27,10 +27,10 @@ describe("Task 2.1.B: basic page routes", () => {
     ).toBeInTheDocument();
   });
 
-  test("/session/new renders placeholder", () => {
+  test("/session/new renders handler page", async () => {
     render(<SessionNewPage />);
     expect(
-      screen.getByRole("heading", { name: /new session/i }),
+      await screen.findByRole("heading", { name: /unable to start session/i }),
     ).toBeInTheDocument();
   });
 

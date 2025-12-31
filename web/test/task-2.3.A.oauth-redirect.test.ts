@@ -26,5 +26,16 @@ describe("Task 2.3.A OAuth redirect", () => {
     expect(setCookie).toContain("HttpOnly");
     expect(setCookie).toMatch(/SameSite=Lax/i);
   });
-});
 
+  test("stores next path when provided", async () => {
+    const request = new Request(
+      "http://localhost:3000/api/auth/github/redirect?next=%2Fsession%2Fnew%3Fcallback%3Dlocalhost%3A1%26token%3Dx",
+    );
+    const response = await GET(request);
+
+    const setCookie = response.headers.get("set-cookie");
+    expect(setCookie).toContain(
+      "maestro_oauth_next=%2Fsession%2Fnew%3Fcallback%3Dlocalhost%3A1%26token%3Dx",
+    );
+  });
+});

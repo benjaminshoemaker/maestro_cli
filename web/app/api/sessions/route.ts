@@ -15,11 +15,15 @@ export async function POST(request: Request) {
   }
 
   const body = (await request.json().catch(() => null)) as
-    | { projectName?: unknown; callbackPort?: unknown }
+    | { projectName?: unknown; callbackPort?: unknown; sessionToken?: unknown }
     | null;
 
   const projectName = typeof body?.projectName === "string" ? body.projectName : null;
   const callbackPort = typeof body?.callbackPort === "number" ? body.callbackPort : null;
+  const requestedToken =
+    typeof body?.sessionToken === "string" && body.sessionToken.trim().length > 0
+      ? body.sessionToken.trim()
+      : null;
 
   if (!projectName || projectName.trim().length === 0 || !callbackPort) {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
@@ -35,6 +39,10 @@ export async function POST(request: Request) {
     .where(and(eq(projects.userId, userId), eq(projects.name, projectName)));
 
   if (existing) {
+    if (requestedToken && requestedToken !== existing.sessionToken) {
+      return NextResponse.json({ error: "Invalid session token" }, { status: 409 });
+    }
+
     return NextResponse.json(
       {
         sessionId: existing.id,
@@ -47,7 +55,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const sessionToken = crypto.randomUUID();
+  const sessionToken = requestedToken ?? crypto.randomUUID();
 
   const [created] = await db
     .insert(projects)
@@ -71,4 +79,3 @@ export async function POST(request: Request) {
     { status: 200 },
   );
 }
-

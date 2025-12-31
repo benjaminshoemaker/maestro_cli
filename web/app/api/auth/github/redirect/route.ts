@@ -3,6 +3,7 @@ import crypto from "node:crypto";
 import { NextResponse } from "next/server";
 
 const OAUTH_STATE_COOKIE = "maestro_oauth_state";
+const OAUTH_NEXT_COOKIE = "maestro_oauth_next";
 
 function getRequiredEnv(name: string) {
   const value = process.env[name];
@@ -16,6 +17,8 @@ export async function GET(_request: Request) {
   try {
     const clientId = getRequiredEnv("GITHUB_CLIENT_ID");
     const appUrl = new URL(_request.url).origin;
+    const requestUrl = new URL(_request.url);
+    const nextParam = requestUrl.searchParams.get("next");
 
     const state = crypto.randomBytes(16).toString("hex");
 
@@ -35,6 +38,16 @@ export async function GET(_request: Request) {
       path: "/",
       maxAge: 60 * 10,
     });
+
+    if (nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//")) {
+      response.cookies.set(OAUTH_NEXT_COOKIE, nextParam, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 10,
+      });
+    }
 
     return response;
   } catch (error) {

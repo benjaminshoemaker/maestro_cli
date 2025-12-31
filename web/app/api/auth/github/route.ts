@@ -10,6 +10,7 @@ import {
 } from "../../../../src/lib/github";
 
 const OAUTH_STATE_COOKIE = "maestro_oauth_state";
+const OAUTH_NEXT_COOKIE = "maestro_oauth_next";
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
@@ -20,6 +21,7 @@ export async function GET(request: Request) {
 
   const cookies = parseCookieHeader(request.headers.get("cookie"));
   const stateCookie = cookies[OAUTH_STATE_COOKIE];
+  const nextCookie = cookies[OAUTH_NEXT_COOKIE];
 
   if (!code || !state || !stateCookie || stateCookie !== state) {
     const redirectUrl = new URL("/login?error=oauth_state_mismatch", appUrl);
@@ -52,7 +54,11 @@ export async function GET(request: Request) {
 
     const jwt = await signAuthToken(user.id);
 
-    const response = NextResponse.redirect(new URL("/session/new", appUrl));
+    const redirectPath =
+      nextCookie && nextCookie.startsWith("/") && !nextCookie.startsWith("//")
+        ? nextCookie
+        : "/session/new";
+    const response = NextResponse.redirect(new URL(redirectPath, appUrl));
     response.cookies.set(getAuthCookieName(), jwt, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -62,6 +68,14 @@ export async function GET(request: Request) {
     });
 
     response.cookies.set(OAUTH_STATE_COOKIE, "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 0,
+    });
+
+    response.cookies.set(OAUTH_NEXT_COOKIE, "", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",

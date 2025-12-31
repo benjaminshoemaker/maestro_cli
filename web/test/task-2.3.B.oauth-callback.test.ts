@@ -102,4 +102,65 @@ describe("Task 2.3.B OAuth callback", () => {
       global.fetch = realFetch;
     }
   });
+
+  test("redirects to stored next path when present", async () => {
+    const oauthState = crypto.randomBytes(16).toString("hex");
+
+    const realFetch = global.fetch;
+    const fetchMock = jest.fn(async (url: any, init?: any) => {
+      const urlString = String(url);
+      if (urlString.startsWith("https://github.com/login/oauth/access_token")) {
+        expect(init?.method).toBe("POST");
+        return new Response(JSON.stringify({ access_token: "test-token" }), {
+          status: 200,
+          headers: { "content-type": "application/json" },
+        });
+      }
+
+      if (urlString.startsWith("https://api.github.com/user/emails")) {
+        return new Response(
+          JSON.stringify([
+            { email: "test@example.com", primary: true, verified: true, visibility: "private" },
+          ]),
+          { status: 200, headers: { "content-type": "application/json" } },
+        );
+      }
+
+      if (urlString.startsWith("https://api.github.com/user")) {
+        return new Response(
+          JSON.stringify({ id: "123456789-test-user", login: "test-user" }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        );
+      }
+
+      return await realFetch(url, init);
+    });
+
+    // @ts-expect-error - override fetch for test
+    global.fetch = fetchMock;
+
+    try {
+      const next = "/session/new?callback=localhost:1&token=x&project=y";
+      const request = new Request(
+        `http://localhost:3000/api/auth/github?code=test-code&state=${oauthState}`,
+        {
+          headers: {
+            cookie: `maestro_oauth_state=${oauthState}; maestro_oauth_next=${next}`,
+          },
+        },
+      );
+
+      const response = await GET(request);
+      expect(response.status).toBeGreaterThanOrEqual(300);
+      expect(response.status).toBeLessThan(400);
+      expect(response.headers.get("location")).toBe(`http://localhost:3000${next}`);
+
+      const setCookie = response.headers.get("set-cookie");
+      expect(setCookie).toContain("maestro_oauth_next=");
+      expect(setCookie).toMatch(/max-age=0/i);
+    } finally {
+      // @ts-expect-error - restore original fetch
+      global.fetch = realFetch;
+    }
+  });
 });

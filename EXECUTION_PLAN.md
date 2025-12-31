@@ -1215,10 +1215,10 @@ Human must complete before starting:
 Implement the logic to open the user's browser with the correct session URL, including callback port and token parameters.
 
 **Acceptance Criteria:**
-- [ ] Uses `open` package to launch browser
-- [ ] URL format: `{APP_URL}/session/new?callback=localhost:{port}&token={token}&project={name}`
-- [ ] Handles "browser won't open" error by displaying URL to user
-- [ ] Displays instructions for manual browser opening
+- [x] Uses `open` package to launch browser
+- [x] URL format: `{APP_URL}/session/new?callback=localhost:{port}&token={token}&project={name}`
+- [x] Handles "browser won't open" error by displaying URL to user
+- [x] Displays instructions for manual browser opening
 
 **Files to Create:**
 - `cli/src/utils/browser.ts` — Browser launch utility

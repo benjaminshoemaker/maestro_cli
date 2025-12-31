@@ -1327,11 +1327,11 @@ Create the CLI flow for transitioning between phases. After receiving a document
 Create logic to validate an existing session with the server. Check if the session token is still valid and get current phase status.
 
 **Acceptance Criteria:**
-- [ ] Reads session token from `.maestro/config.json`
-- [ ] Validates token with server API
-- [ ] Returns current phase if valid
-- [ ] Returns invalid status if token expired or not found
-- [ ] Handles network errors gracefully
+- [x] Reads session token from `.maestro/config.json`
+- [x] Validates token with server API
+- [x] Returns current phase if valid
+- [x] Returns invalid status if token expired or not found
+- [x] Handles network errors gracefully
 
 **Files to Create:**
 - `cli/src/utils/session.ts` — Session validation utilities

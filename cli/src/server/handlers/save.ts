@@ -2,6 +2,12 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import type express from "express";
 
+export type SavedDocument = {
+  phase: number;
+  filename: string;
+  path: string;
+};
+
 type SaveRequestBody = {
   phase: number;
   filename: string;
@@ -18,6 +24,7 @@ function getBearerToken(headerValue: string | undefined): string | null {
 export function createSaveHandler(params: {
   projectDir: string;
   sessionToken: string;
+  onSaved?: (doc: SavedDocument) => void;
 }): express.RequestHandler {
   return async (req, res) => {
     const token = getBearerToken(req.header("authorization"));
@@ -48,7 +55,7 @@ export function createSaveHandler(params: {
     await mkdir(join(projectDir, "specs"), { recursive: true });
     await writeFile(path, content, "utf8");
 
+    params.onSaved?.({ phase, filename, path });
     return res.json({ success: true, path });
   };
 }
-

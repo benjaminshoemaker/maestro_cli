@@ -1,11 +1,14 @@
 import express from "express";
 import getPort, { portNumbers } from "get-port";
+import { EventEmitter } from "node:events";
 import { createRoutes } from "./routes";
+import type { SavedDocument } from "./handlers/save";
 
 export type CallbackServer = {
   app: express.Express;
   port: number;
   close: () => Promise<void>;
+  waitForSave: (options: { timeoutMs: number }) => Promise<SavedDocument>;
 };
 
 export async function startCallbackServer(options: {
@@ -32,7 +35,20 @@ export async function startCallbackServer(options: {
     next();
   });
   app.use(express.json({ limit: "2mb" }));
-  app.use(createRoutes({ projectDir: options.projectDir, sessionToken: options.sessionToken }));
+
+  const events = new EventEmitter();
+  const savedQueue: SavedDocument[] = [];
+
+  app.use(
+    createRoutes({
+      projectDir: options.projectDir,
+      sessionToken: options.sessionToken,
+      onSaved: (doc) => {
+        savedQueue.push(doc);
+        events.emit("saved");
+      },
+    }),
+  );
 
   let server: import("node:http").Server | undefined;
   let port: number | undefined;
@@ -64,6 +80,35 @@ export async function startCallbackServer(options: {
       server.close((err) => (err ? reject(err) : resolve()));
     });
 
+  const waitForSave: CallbackServer["waitForSave"] = async ({ timeoutMs }) => {
+    if (savedQueue.length > 0) {
+      return savedQueue.shift()!;
+    }
+
+    return await new Promise<SavedDocument>((resolve, reject) => {
+      const onSaved = () => {
+        cleanup();
+        resolve(savedQueue.shift()!);
+      };
+
+      const timer = setTimeout(() => {
+        cleanup();
+        reject(Object.assign(new Error("timeout"), { code: "ETIMEOUT", name: "TimeoutError" }));
+      }, timeoutMs);
+
+      const cleanup = () => {
+        clearTimeout(timer);
+        events.off("saved", onSaved);
+      };
+
+      events.on("saved", onSaved);
+
+      if (savedQueue.length > 0) {
+        onSaved();
+      }
+    });
+  };
+
   console.log(`Localhost callback server listening on http://localhost:${port}`);
 
   const handleSignals = options?.handleSignals ?? true;
@@ -79,5 +124,5 @@ export async function startCallbackServer(options: {
     process.once("SIGTERM", shutdown);
   }
 
-  return { app, port, close };
+  return { app, port, close, waitForSave };
 }

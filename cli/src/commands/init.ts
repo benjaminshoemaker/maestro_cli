@@ -12,6 +12,7 @@ import { formatFileTree } from "../utils/filetree";
 import { startCallbackServer } from "../server";
 import { readMaestroConfig } from "../utils/maestro-config";
 import { getAppUrl, launchSessionInBrowser } from "../utils/browser";
+import { waitForDocument } from "../utils/wait";
 
 export function createInitCommand(): Command {
   return new Command("init")
@@ -60,5 +61,9 @@ export function createInitCommand(): Command {
         console.log(chalk.yellow("Open this URL manually to continue:"));
         console.log(chalk.cyan(url.toString()));
       }
+
+      const saved = await waitForDocument({ waitForSave: server.waitForSave });
+      console.log(chalk.green(`✓ Saved ${saved.filename}`));
+      console.log(chalk.gray(saved.path));
     });
 }

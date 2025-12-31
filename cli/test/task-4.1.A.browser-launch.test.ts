@@ -77,6 +77,19 @@ describe("Task 4.1.A init command launches browser", () => {
       startCallbackServer: vi.fn(async () => ({
         port: 50045,
         close: async () => undefined,
+        waitForSave: async () => ({
+          phase: 1,
+          filename: "PRODUCT_SPEC.md",
+          path: "/tmp/PRODUCT_SPEC.md",
+        }),
+      })),
+    }));
+
+    vi.doMock("../src/utils/wait", () => ({
+      waitForDocument: vi.fn(async () => ({
+        phase: 1,
+        filename: "PRODUCT_SPEC.md",
+        path: "/tmp/PRODUCT_SPEC.md",
       })),
     }));
 

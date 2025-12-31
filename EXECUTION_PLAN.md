@@ -1353,12 +1353,12 @@ Create logic to validate an existing session with the server. Check if the sessi
 Update the init command to handle resume flow. When `.maestro/` exists and user confirms resume, validate session and continue from current phase.
 
 **Acceptance Criteria:**
-- [ ] Detects existing `.maestro/config.json`
-- [ ] Prompts user to resume
-- [ ] Validates session with server
-- [ ] If valid, resumes at correct phase
-- [ ] If invalid, offers to start fresh (clear config)
-- [ ] Displays current phase status before resuming
+- [x] Detects existing `.maestro/config.json`
+- [x] Prompts user to resume
+- [x] Validates session with server
+- [x] If valid, resumes at correct phase
+- [x] If invalid, offers to start fresh (clear config)
+- [x] Displays current phase status before resuming
 
 **Files to Modify:**
 - `cli/src/commands/init.ts` — Add resume flow logic

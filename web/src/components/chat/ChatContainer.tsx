@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import type { Message } from "ai";
 
 import { ChatInput } from "./ChatInput";
 import type { ChatMessage } from "./MessageList";
@@ -30,9 +31,13 @@ export function ChatContainer({
 }: ChatContainerProps) {
   const chat = useSessionChat({ sessionId, phase });
 
+  function isRenderableMessage(message: Message): message is Message & { role: "user" | "assistant" } {
+    return message.role === "user" || message.role === "assistant";
+  }
+
   const messages = useMemo<ChatMessage[]>(() => {
     return (chat.messages ?? [])
-      .filter((message) => message.role === "user" || message.role === "assistant")
+      .filter(isRenderableMessage)
       .map((message) => ({
         id: message.id,
         role: message.role,

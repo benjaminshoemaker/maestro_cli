@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { ChatContainer } from "../../../../../src/components/chat/ChatContainer";
 import { PhaseComplete } from "../../../../../src/components/chat/PhaseComplete";
+import { SkeletonPage } from "../../../../../src/components/Skeleton";
 
 type SessionPhasePageProps = {
   params: {
@@ -111,11 +112,35 @@ export default function SessionPhasePage({ params }: SessionPhasePageProps) {
   if (!phase) {
     return (
       <main
-        className="mx-auto flex min-h-dvh max-w-3xl flex-col gap-6 px-6 py-16"
+        id="main-content"
+        className="mx-auto flex min-h-dvh max-w-3xl flex-col items-center justify-center gap-6 px-6 py-16"
         data-testid="session-phase-page"
       >
-        <h1 className="text-balance text-4xl font-semibold tracking-tight">Invalid phase</h1>
-        <p className="text-pretty text-lg text-neutral-600">Phase must be 1, 2, 3, or 4.</p>
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-warning-light">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-8 w-8 text-warning"
+            aria-hidden="true"
+          >
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+            <path d="M12 9v4" />
+            <path d="M12 17h.01" />
+          </svg>
+        </div>
+        <div className="text-center">
+          <h1 className="text-balance font-serif text-4xl font-semibold tracking-tight text-primary">
+            Invalid phase
+          </h1>
+          <p className="mt-2 text-pretty text-lg text-secondary">
+            Phase must be 1, 2, 3, or 4.
+          </p>
+        </div>
       </main>
     );
   }
@@ -123,25 +148,46 @@ export default function SessionPhasePage({ params }: SessionPhasePageProps) {
   if (error) {
     return (
       <main
-        className="mx-auto flex min-h-dvh max-w-3xl flex-col gap-6 px-6 py-16"
+        id="main-content"
+        className="mx-auto flex min-h-dvh max-w-3xl flex-col items-center justify-center gap-6 px-6 py-16"
         data-testid="session-phase-page"
       >
-        <h1 className="text-balance text-4xl font-semibold tracking-tight">Could not load session</h1>
-        <p className="text-pretty text-lg text-neutral-600">{error}</p>
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-error-light">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-8 w-8 text-error"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="m15 9-6 6" />
+            <path d="m9 9 6 6" />
+          </svg>
+        </div>
+        <div className="text-center">
+          <h1 className="text-balance font-serif text-4xl font-semibold tracking-tight text-primary">
+            Could not load session
+          </h1>
+          <p className="mt-2 text-pretty text-lg text-secondary">{error}</p>
+        </div>
+        <button
+          type="button"
+          className="btn-secondary h-10 px-4 text-sm"
+          onClick={() => window.location.reload()}
+        >
+          Try again
+        </button>
       </main>
     );
   }
 
   if (!session) {
-    return (
-      <main
-        className="mx-auto flex min-h-dvh max-w-3xl flex-col gap-6 px-6 py-16"
-        data-testid="session-phase-page"
-      >
-        <h1 className="text-balance text-4xl font-semibold tracking-tight">Loading…</h1>
-        <p className="text-pretty text-lg text-neutral-600">Fetching session details.</p>
-      </main>
-    );
+    return <SkeletonPage />;
   }
 
   if (projectComplete || session.currentPhase == null) {

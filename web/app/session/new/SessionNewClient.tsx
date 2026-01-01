@@ -108,27 +108,96 @@ export default function SessionNewClient() {
 
   if (error) {
     return (
-      <main className="mx-auto flex min-h-dvh max-w-3xl flex-col gap-6 px-6 py-16">
-        <h1 className="text-balance text-3xl font-semibold tracking-tight">
-          Unable to start session
-        </h1>
-        <p className="text-pretty text-neutral-600">{error}</p>
-        <p className="text-pretty text-neutral-600">
-          Return to your CLI and run <code className="rounded bg-neutral-100 px-1">maestro init</code>{" "}
-          again.
-        </p>
+      <main
+        id="main-content"
+        className="mx-auto flex min-h-dvh max-w-3xl flex-col items-center justify-center gap-6 px-6 py-16"
+      >
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-error-light">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-8 w-8 text-error"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="m15 9-6 6" />
+            <path d="m9 9 6 6" />
+          </svg>
+        </div>
+        <div className="text-center">
+          <h1 className="text-balance font-serif text-3xl font-semibold tracking-tight text-primary">
+            Unable to start session
+          </h1>
+          <p className="mt-2 text-pretty text-secondary">{error}</p>
+        </div>
+        <div className="card flex items-center gap-3 bg-surface-secondary p-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-5 w-5 shrink-0 text-muted"
+            aria-hidden="true"
+          >
+            <polyline points="4 17 10 11 4 5" />
+            <line x1="12" x2="20" y1="19" y2="19" />
+          </svg>
+          <p className="text-sm text-secondary">
+            Return to your CLI and run{" "}
+            <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-xs text-primary">
+              maestro init
+            </code>{" "}
+            again.
+          </p>
+        </div>
       </main>
     );
   }
 
   return (
-    <main className="mx-auto flex min-h-dvh max-w-3xl flex-col gap-4 px-6 py-16">
-      <h1 className="text-balance text-3xl font-semibold tracking-tight">
-        Starting session…
-      </h1>
-      <p className="text-pretty text-neutral-600">
-        One moment while we connect your CLI.
-      </p>
+    <main
+      id="main-content"
+      className="mx-auto flex min-h-dvh max-w-3xl flex-col items-center justify-center gap-6 px-6 py-16"
+    >
+      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent-light">
+        <svg
+          className="h-8 w-8 animate-spin text-accent"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+          />
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          />
+        </svg>
+      </div>
+      <div className="text-center">
+        <h1 className="text-balance font-serif text-3xl font-semibold tracking-tight text-primary">
+          Starting session...
+        </h1>
+        <p className="mt-2 text-pretty text-secondary">
+          One moment while we connect your CLI.
+        </p>
+      </div>
     </main>
   );
 }
